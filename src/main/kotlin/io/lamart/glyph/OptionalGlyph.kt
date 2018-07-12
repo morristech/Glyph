@@ -1,4 +1,4 @@
-package glyph
+package io.lamart.glyph
 
 interface OptionalGlyph<T> {
 

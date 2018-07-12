@@ -1,9 +1,9 @@
-package glyph.implementations
+package io.lamart.glyph.implementations
 
-import glyph.Glyph
-import glyph.Observer
-import glyph.ObserverCreator
-import glyph.ThreadSafe
+import io.lamart.glyph.Glyph
+import io.lamart.glyph.Observer
+import io.lamart.glyph.ObserverCreator
+import io.lamart.glyph.ThreadSafe
 
 class SynchronizedGlyph<T>(
         private var state: T,

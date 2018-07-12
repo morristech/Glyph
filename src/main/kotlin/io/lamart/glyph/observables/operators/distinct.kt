@@ -1,8 +1,8 @@
-package glyph.observables.operators
+package io.lamart.glyph.observables.operators
 
-import glyph.Observer
-import glyph.observables.Observable
-import glyph.observables.RemoveObserver
+import io.lamart.glyph.Observer
+import io.lamart.glyph.observables.Observable
+import io.lamart.glyph.observables.RemoveObserver
 
 
 fun <T> Observable<T>.distinct(): Observable<T> = DistinctObservable(this)

@@ -1,10 +1,10 @@
-package glyph.observables.operators
+package io.lamart.glyph.observables.operators
 
-import glyph.Glyph
-import glyph.Observer
-import glyph.observables.GlyphObservable
-import glyph.observables.Observable
-import glyph.observables.RemoveObserver
+import io.lamart.glyph.Glyph
+import io.lamart.glyph.Observer
+import io.lamart.glyph.observables.GlyphObservable
+import io.lamart.glyph.observables.Observable
+import io.lamart.glyph.observables.RemoveObserver
 
 fun <T> Observable<T>.wrap(wrap: (Observer<T>) -> Observer<T>): Observable<T> =
         WrapObservable(this, wrap)

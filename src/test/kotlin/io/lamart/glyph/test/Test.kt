@@ -1,9 +1,9 @@
 package io.lamart.glyph.test
 
-import glyph.implementations.SimpleGlyph
-import glyph.operators.compose
-import glyph.observables.*
-import glyph.observables.operators.*
+import io.lamart.glyph.implementations.SimpleGlyph
+import io.lamart.glyph.operators.compose
+import io.lamart.glyph.observables.*
+import io.lamart.glyph.observables.operators.*
 
 
 private fun test() {

@@ -1,6 +1,6 @@
-package glyph.operators
+package io.lamart.glyph.operators
 
-import glyph.Glyph
+import io.lamart.glyph.Glyph
 
 fun <T> Glyph<T>.intercept(
         getState: Glyph<T>.() -> T = { getState() },

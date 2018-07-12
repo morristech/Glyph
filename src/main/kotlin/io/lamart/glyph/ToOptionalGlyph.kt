@@ -1,4 +1,4 @@
-package glyph
+package io.lamart.glyph
 
 fun <T> Glyph<T>.toOptional(): OptionalGlyph<T> = ToOptionalGlyph(this)
 

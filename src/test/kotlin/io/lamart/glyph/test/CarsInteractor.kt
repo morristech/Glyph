@@ -1,8 +1,8 @@
 package io.lamart.glyph.test
 
-import glyph.Glyph
-import glyph.operators.compose
-import glyph.operators.composeList
+import io.lamart.glyph.Glyph
+import io.lamart.glyph.operators.compose
+import io.lamart.glyph.operators.composeList
 
 class CarsInteractor(private val glyph: Glyph<List<Car>>) {
 

@@ -1,7 +1,7 @@
-package glyph.observables
+package io.lamart.glyph.observables
 
-import glyph.Glyph
-import glyph.Observer
+import io.lamart.glyph.Glyph
+import io.lamart.glyph.Observer
 
 class ListObserverAdapter<T> : ObserverAdapter<T> {
 

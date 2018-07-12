@@ -1,7 +1,7 @@
-package glyph.operators
+package io.lamart.glyph.operators
 
-import glyph.Glyph
-import glyph.OptionalGlyph
+import io.lamart.glyph.Glyph
+import io.lamart.glyph.OptionalGlyph
 
 fun <T, R> Glyph<T>.compose(
         map: T.() -> R,

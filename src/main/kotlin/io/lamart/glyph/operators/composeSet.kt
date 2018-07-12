@@ -1,8 +1,8 @@
-package glyph.operators
+package io.lamart.glyph.operators
 
-import glyph.Glyph
-import glyph.OptionalGlyph
-import glyph.toOptional
+import io.lamart.glyph.Glyph
+import io.lamart.glyph.OptionalGlyph
+import io.lamart.glyph.toOptional
 
 
 fun <T> Glyph<Set<T>>.composeSet(predicate: (T) -> Boolean, init: OptionalGlyph<T>.() -> Unit) =
