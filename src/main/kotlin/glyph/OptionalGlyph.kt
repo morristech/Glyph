@@ -6,16 +6,7 @@ interface OptionalGlyph<T> {
 
     fun setState(state: T)
 
-}
+    fun ifState(predicate: T.(T) -> Boolean) =
+            getState()?.takeIf { predicate(it, it) }?.let { this }
 
-fun <T> OptionalGlyph<T>.ifState(predicate: T.(T) -> Boolean, block: OptionalGlyph<T>.() -> Unit) {
-    ifState(predicate)?.let { block(it) }
 }
-
-fun <T> OptionalGlyph<T>.ifState(predicate: T.(T) -> Boolean) =
-        getState()?.let { state ->
-            when {
-                predicate(state, state) -> this
-                else -> null
-            }
-        }

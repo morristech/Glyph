@@ -10,7 +10,7 @@ private class DistinctObservable<T>(private val observable: Observable<T>) : Obs
     override fun addObserver(observer: Observer<T>): RemoveObserver =
             observable.addObserver(DistinctObserver(observer))
 
-    private class DistinctObserver<in T>(private val observer: Observer<T>) : Observer<T> {
+    private inner class DistinctObserver(private val observer: Observer<T>) : Observer<T> {
 
         private var isSet = false
         private var state: T? = null
