@@ -4,7 +4,7 @@ import io.lamart.glyph.Glyph
 import io.lamart.glyph.Observer
 
 
-class ListObservable<T>(override val glyph: Glyph<T>) : GlyphObservable<T>, Observer<T> {
+class ListProcessor<T>(override val glyph: Glyph<T>) : GlyphProcessor<T> {
 
     private val list = mutableListOf<Subscription>()
 

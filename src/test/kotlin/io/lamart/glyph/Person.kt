@@ -1,4 +1,4 @@
-package io.lamart.glyph.test
+package io.lamart.glyph
 
 data class Person(val cars: List<Car> = listOf(
         Car("Ferrari"),

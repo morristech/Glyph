@@ -1,4 +1,4 @@
-package io.lamart.glyph.test
+package io.lamart.glyph
 
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.operators.compose

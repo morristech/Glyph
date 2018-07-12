@@ -2,14 +2,16 @@ package io.lamart.glyph.observables
 
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.Observer
+import io.lamart.glyph.implementations.ObserverCreator
 
-class ListObserverAdapter<T> : ObserverAdapter<T> {
 
-    private lateinit var observable: ListObservable<T>
+open class ObserverCreatorAdapter<T>(private val factory: (Glyph<T>) -> GlyphProcessor<T>) : ObserverCreator<T>, GlyphObservable<T> {
+
+    private lateinit var observable: GlyphProcessor<T>
     override val glyph: Glyph<T>
         get() = observable.glyph
 
-    override fun invoke(glyph: Glyph<T>): ListObservable<T> = ListObservable(glyph).also { observable = it }
+    override fun invoke(glyph: Glyph<T>): Observer<T> = factory(glyph).also { observable = it }
 
     override fun addObserver(observer: Observer<T>): RemoveObserver {
         try {
