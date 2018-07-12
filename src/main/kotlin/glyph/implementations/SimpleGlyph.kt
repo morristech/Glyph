@@ -1,4 +1,8 @@
-package glyph
+package glyph.implementations
+
+import glyph.Glyph
+import glyph.Observer
+import glyph.ObserverCreator
 
 class SimpleGlyph<T>(
         private var state: T,

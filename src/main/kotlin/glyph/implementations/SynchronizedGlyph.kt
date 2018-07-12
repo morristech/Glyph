@@ -1,4 +1,9 @@
-package glyph
+package glyph.implementations
+
+import glyph.Glyph
+import glyph.Observer
+import glyph.ObserverCreator
+import glyph.ThreadSafe
 
 class SynchronizedGlyph<T>(
         private var state: T,

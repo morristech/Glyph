@@ -1,5 +1,8 @@
-package glyph
+package glyph.implementations
 
+import glyph.Glyph
+import glyph.Observer
+import glyph.ObserverCreator
 import java.util.concurrent.atomic.AtomicReference
 
 class AtomicGlyph<T>(

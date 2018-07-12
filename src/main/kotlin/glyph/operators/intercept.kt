@@ -1,4 +1,6 @@
-package glyph
+package glyph.operators
+
+import glyph.Glyph
 
 fun <T> Glyph<T>.intercept(
         getState: Glyph<T>.() -> T = { getState() },

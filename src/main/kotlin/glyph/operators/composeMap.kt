@@ -1,4 +1,4 @@
-package glyph.composers
+package glyph.operators
 
 import glyph.Glyph
 import glyph.OptionalGlyph
