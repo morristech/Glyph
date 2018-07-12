@@ -6,7 +6,8 @@ interface Glyph<T> {
 
     fun setState(state: T)
 
-    fun ifState(predicate: T.(T) -> Boolean) =
+    @NotThreadSafe
+    fun ifState(predicate: T.(T) -> Boolean) : Glyph<T>? =
             getState().takeIf { predicate(it, it) }?.let { this }
 
 }
