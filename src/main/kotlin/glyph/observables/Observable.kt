@@ -16,3 +16,4 @@ interface GlyphObservable<T> : Observable<T> {
     val glyph: Glyph<T>
 
 }
+

@@ -14,7 +14,7 @@ private class PrependObservable<T>(private val observable: GlyphObservable<T>) :
     override fun addObserver(observer: Observer<T>): RemoveObserver {
         val removeObserver = observable.addObserver(observer)
 
-        observer(observable.glyph.getState())
+        observable.glyph.getState().let(observer)
         return removeObserver
     }
 }

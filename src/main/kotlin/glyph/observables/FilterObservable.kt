@@ -14,8 +14,7 @@ class FilterObservable<T>(private val observable: Observable<T>, private val pre
     private inner class FilterObserver(private val observer: Observer<T>) : Observer<T> {
 
         override fun invoke(state: T) {
-            if (predicate(state))
-                observer(state)
+            state.takeIf(predicate)?.let(observer)
         }
 
     }
