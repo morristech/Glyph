@@ -21,8 +21,6 @@ class SynchronizedGlyph<T>(
 
     @ThreadSafe
     override fun ifState(predicate: T.(T) -> Boolean, block: Glyph<T>.() -> Unit) =
-            synchronized(lock) {
-                getState().takeIf { predicate(it, it) }?.let { block(this) }
-            }
+            synchronized(lock) { super.ifState(predicate, block) }
 
 }
