@@ -11,6 +11,12 @@ class ListObserverAdapter<T> : ObserverAdapter<T> {
 
     override fun invoke(glyph: Glyph<T>): ListObservable<T> = ListObservable(glyph).also { observable = it }
 
-    override fun addObserver(observer: Observer<T>): RemoveObserver = observable.addObserver(observer)
+    override fun addObserver(observer: Observer<T>): RemoveObserver {
+        try {
+            return observable.addObserver(observer)
+        } catch (e: UninitializedPropertyAccessException) {
+            throw IllegalStateException("You can only add observers after creating the Glyph", e)
+        }
+    }
 
 }
