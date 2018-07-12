@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/glyph.iml" filepath="$PROJECT_DIR$/.idea/modules/glyph.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/glyph_main.iml" filepath="$PROJECT_DIR$/.idea/modules/glyph_main.iml" group="glyph" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/glyph_test.iml" filepath="$PROJECT_DIR$/.idea/modules/glyph_test.iml" group="glyph" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.lamart.glyph.iml" filepath="$PROJECT_DIR$/.idea/modules/io.lamart.glyph.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.lamart.glyph_main.iml" filepath="$PROJECT_DIR$/.idea/modules/io.lamart.glyph_main.iml" group="io.lamart.glyph" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.lamart.glyph_test.iml" filepath="$PROJECT_DIR$/.idea/modules/io.lamart.glyph_test.iml" group="io.lamart.glyph" />
     </modules>
   </component>
 </project>

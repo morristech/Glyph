@@ -1,6 +1,7 @@
-package io.lamart.glyph
+package io.lamart.glyph.implementations
 
-typealias Observer<T> = (T) -> Unit
+import io.lamart.glyph.Glyph
+import io.lamart.glyph.Observer
 
 /**
  * This function will only be called once

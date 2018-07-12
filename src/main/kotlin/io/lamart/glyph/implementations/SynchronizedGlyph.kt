@@ -2,7 +2,6 @@ package io.lamart.glyph.implementations
 
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.Observer
-import io.lamart.glyph.ObserverCreator
 import io.lamart.glyph.ThreadSafe
 
 class SynchronizedGlyph<T>(

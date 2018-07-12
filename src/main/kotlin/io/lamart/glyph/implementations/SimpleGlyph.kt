@@ -2,7 +2,6 @@ package io.lamart.glyph.implementations
 
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.Observer
-import io.lamart.glyph.ObserverCreator
 
 class SimpleGlyph<T>(
         private var state: T,
