@@ -12,19 +12,27 @@ private class DistinctObservable<T>(private val observable: Observable<T>) : Obs
 
     private inner class DistinctObserver(private val observer: Observer<T>) : Observer<T> {
 
-        private var isSet = false
+        private var isInitialized = false
         private var state: T? = null
 
         override fun invoke(next: T) {
-            if (!isSet) {
-                state = next
-                isSet = true
+            if (isDistinct(next))
                 observer(next)
-            } else if (state != next) {
-                state = next
-                observer(next)
-            }
         }
+
+        private fun isDistinct(next: T): Boolean =
+                synchronized(this) {
+                    if (!isInitialized) {
+                        state = next
+                        isInitialized = true
+                        true
+                    } else if (state != next) {
+                        state = next
+                        true
+                    } else {
+                        false
+                    }
+                }
 
     }
 }
