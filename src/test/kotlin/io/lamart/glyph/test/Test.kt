@@ -3,6 +3,7 @@ package io.lamart.glyph.test
 import glyph.SimpleGlyph
 import glyph.composers.compose
 import glyph.observables.*
+import glyph.observables.operators.*
 
 
 private fun test() {

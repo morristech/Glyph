@@ -1,6 +1,8 @@
-package glyph.observables
+package glyph.observables.operators
 
 import glyph.Observer
+import glyph.observables.Observable
+import glyph.observables.RemoveObserver
 
 fun <T> Observable<T>.delegate(delegate: Observer<T>.(T) -> Unit): Observable<T> =
         DelegateObservable(this, delegate)

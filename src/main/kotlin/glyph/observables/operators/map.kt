@@ -1,6 +1,8 @@
-package glyph.observables
+package glyph.observables.operators
 
 import glyph.Observer
+import glyph.observables.Observable
+import glyph.observables.RemoveObserver
 
 /**
  * Creates an Observable that returns is applicable for a substate of the given Observable

@@ -1,6 +1,8 @@
-package glyph.observables
+package glyph.observables.operators
 
 import glyph.Observer
+import glyph.observables.Observable
+import glyph.observables.RemoveObserver
 
 
 fun <T> Observable<T>.distinct(): Observable<T> = DistinctObservable(this)
@@ -35,4 +37,5 @@ private class DistinctObservable<T>(private val observable: Observable<T>) : Obs
                 }
 
     }
+
 }

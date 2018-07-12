@@ -1,7 +1,8 @@
-package glyph.observables
+package glyph.observables.operators
 
-import glyph.Glyph
 import glyph.Observer
+import glyph.observables.GlyphObservable
+import glyph.observables.RemoveObserver
 
 /**
  * Whenever you add an observer, it will directly receive the current state.
@@ -18,3 +19,5 @@ private class PrependObservable<T>(private val observable: GlyphObservable<T>) :
         return removeObserver
     }
 }
+
+

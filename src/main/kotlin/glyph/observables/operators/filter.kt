@@ -1,6 +1,8 @@
-package glyph.observables
+package glyph.observables.operators
 
 import glyph.Observer
+import glyph.observables.Observable
+import glyph.observables.RemoveObserver
 
 fun <T> Observable<T>.filter(predicate: (T) -> Boolean): Observable<T> = FilterObservable(this, predicate)
 
