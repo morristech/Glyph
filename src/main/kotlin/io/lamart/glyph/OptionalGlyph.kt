@@ -10,4 +10,8 @@ interface OptionalGlyph<T> {
     fun ifState(predicate: T.(T) -> Boolean): OptionalGlyph<T>? =
             getState()?.takeIf { predicate(it, it) }?.let { this }
 
+    @ThreadSafe
+    fun ifState(predicate: T.(T) -> Boolean, block: OptionalGlyph<T>.() -> Unit) =
+            getState()?.takeIf { predicate(it, it) }?.let { block(this) }
+
 }
