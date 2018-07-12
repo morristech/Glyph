@@ -2,7 +2,6 @@ package io.lamart.glyph.operators
 
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.OptionalGlyph
-import io.lamart.glyph.toOptional
 
 fun <K, V> Glyph<Map<K, V>>.composeMap(key: K, init: OptionalGlyph<V>.() -> Unit) =
         composeMap(key).run(init)

@@ -2,7 +2,6 @@ package io.lamart.glyph.operators
 
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.OptionalGlyph
-import io.lamart.glyph.toOptional
 
 
 fun <T> Glyph<Collection<T>>.composeCollection(predicate: (T) -> Boolean, init: OptionalGlyph<T>.() -> Unit) =
