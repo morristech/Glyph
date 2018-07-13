@@ -6,9 +6,10 @@ import io.lamart.glyph.observables.RemoveObserver
 
 fun <T> Observable<T>.filter(predicate: (T) -> Boolean): Observable<T> = FilterObservable(this, predicate)
 
-fun <T> Observable<T?>.filterNull(): Observable<T> = filter({ it != null }).map { it!! }
-
-class FilterObservable<T>(private val observable: Observable<T>, private val predicate: (T) -> Boolean) : Observable<T> {
+class FilterObservable<T>(
+        private val observable: Observable<T>,
+        private val predicate: (T) -> Boolean
+) : Observable<T> {
 
     override fun addObserver(observer: Observer<T>): RemoveObserver =
             observable.addObserver(FilterObserver(observer))

@@ -1,34 +1,26 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 buildscript {
-    var kotlin_version: String by extra
-    kotlin_version = "1.2.31"
-
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath(kotlinModule("gradle-plugin", kotlin_version))
+        classpath(kotlinModule("gradle-plugin", "1.2.41"))
     }
 }
 
-group = "io.lamart"
-version = "1.0-SNAPSHOT"
+group = "io.lamart.glyph"
+version = "0.9.0"
+
+plugins { `java-library` }
 
 apply {
     plugin("kotlin")
 }
-
-val kotlin_version: String by extra
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile(kotlinModule("stdlib-jdk8", kotlin_version))
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    implementation(kotlinModule("stdlib-jdk8", "1.2.31"))
+    testImplementation("junit:junit:4.12")
 }

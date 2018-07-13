@@ -1,10 +1,9 @@
 package io.lamart.glyph.observables
 
-import io.lamart.glyph.Glyph
 import io.lamart.glyph.Observer
 
 
-class ListProcessor<T>(override val glyph: Glyph<T>) : GlyphProcessor<T> {
+class ListObservableDelegate<T> : ObservableDelegate<T> {
 
     private val list = mutableListOf<Subscription>()
 

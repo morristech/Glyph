@@ -3,19 +3,16 @@ package io.lamart.glyph.implementations
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.Observer
 
-class BasicGlyph<T>(
+open class BasicGlyph<T>(
         private var state: T,
-        observerCreator: ObserverCreator<T>? = null
+        private val observer: Observer<T>
 ) : Glyph<T> {
-
-    private val observer: Observer<T>? = observerCreator?.invoke(this)
 
     override fun getState(): T = state
 
     override fun setState(state: T) {
         this.state = state
-        observer?.invoke(state)
+        observer(state)
     }
 
 }
-

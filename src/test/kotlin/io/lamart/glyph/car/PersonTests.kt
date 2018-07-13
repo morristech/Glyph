@@ -1,30 +1,29 @@
-package io.lamart.glyph
+package io.lamart.glyph.car
 
 import io.lamart.glyph.implementations.BasicGlyph
 import io.lamart.glyph.operators.compose
 import io.lamart.glyph.observables.*
 import io.lamart.glyph.observables.operators.*
+import org.junit.Test
 
 
-class Test {
+class PersonTests {
 
-    private fun test() {
-        val observable = ObserverCreatorAdapter<Person>(::ListProcessor)
+    @Test
+    fun test() {
+        val observable = ListObservableDelegate<Person>()
         val source = BasicGlyph(Person(), observable)
         val cars = source
                 .compose({ cars }, { copy(cars = it) })
                 .let(::CarsInteractor)
 
         observable
-                .prepend()
-                .map { it.cars.find { it.name == "Ferrari" } }
-                .filterNull()
+                .prepend(source)
+                .map { it.cars.find { it.name == "Ferrari" }?.name }
                 .distinct()
-                .addObserver { it.name }
+                .addObserver(::println)
 
-        cars.startHonking("Ferrari")
         cars.stopHonking("Ferrari")
-
     }
 
 

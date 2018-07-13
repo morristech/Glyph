@@ -2,25 +2,23 @@ package io.lamart.glyph.implementations
 
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.Observer
-import io.lamart.glyph.ThreadSafe
 
-class SynchronizedGlyph<T>(
+open class SynchronizedGlyph<T>(
         private var state: T,
-        observerCreator: ObserverCreator<T>? = null,
+        private val observer: Observer<T>,
         private val lock: Any = Any()
 ) : Glyph<T> {
-
-    private val observer: Observer<T>? = observerCreator?.invoke(this)
 
     override fun getState(): T = synchronized(lock) { state }
 
     override fun setState(state: T) {
         synchronized(lock) { this.state = state }
-        observer?.invoke(state)
+        observer(state)
     }
 
-    @ThreadSafe
-    override fun ifState(predicate: T.(T) -> Boolean, block: Glyph<T>.() -> Unit) =
-            synchronized(lock) { super.ifState(predicate, block) }
+    override fun setState(transform: T.(T) -> T) = synchronized(lock) { super.setState(transform) }
+
+    override fun setStateIf(predicate: T.(T) -> Boolean, transform: T.(T) -> T) =
+            synchronized(lock) { super.setStateIf(predicate, transform) }
 
 }
