@@ -1,19 +1,20 @@
+private val kotlinVersion = "1.2.41"
+
+group = "io.lamart.glyph"
+
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath(kotlinModule("gradle-plugin", "1.2.41"))
+        classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }
 
-group = "io.lamart.glyph"
-version = "0.9.0"
-
-plugins { `java-library` }
-
 apply {
+    plugin("java-library")
     plugin("kotlin")
+    plugin("maven")
 }
 
 repositories {
@@ -21,6 +22,6 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlinModule("stdlib-jdk8", "1.2.31"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     testImplementation("junit:junit:4.12")
 }
