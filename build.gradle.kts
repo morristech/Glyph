@@ -9,6 +9,10 @@ buildscript {
     }
 }
 
+plugins {
+    java
+}
+
 apply {
     plugin("java-library")
     plugin("kotlin")
