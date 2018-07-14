@@ -1,5 +1,3 @@
-private val kotlinVersion = "1.2.41"
-
 group = "io.lamart.glyph"
 
 buildscript {
@@ -7,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.41")
     }
 }
 
@@ -22,6 +20,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.41")
     testImplementation("junit:junit:4.12")
 }
