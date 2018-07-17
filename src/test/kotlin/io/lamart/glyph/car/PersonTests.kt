@@ -11,7 +11,7 @@ class PersonTests {
 
     @Test
     fun test() {
-        val observable = ListObservableDelegate<Person>()
+        val observable = ListEmitter<Person>()
         val source = BasicGlyph(Person(), observable)
         val cars = source
                 .compose({ cars }, { copy(cars = it) })

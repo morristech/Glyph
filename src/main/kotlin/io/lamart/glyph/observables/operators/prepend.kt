@@ -2,8 +2,8 @@ package io.lamart.glyph.observables.operators
 
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.Observer
-import io.lamart.glyph.observables.Observable
-import io.lamart.glyph.observables.RemoveObserver
+import io.lamart.glyph.Observable
+import io.lamart.glyph.RemoveObserver
 
 /**
  * Whenever you add an observer, it will directly receive the current state.

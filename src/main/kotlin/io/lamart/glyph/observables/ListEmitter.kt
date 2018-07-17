@@ -1,9 +1,11 @@
 package io.lamart.glyph.observables
 
+import io.lamart.glyph.Emitter
 import io.lamart.glyph.Observer
+import io.lamart.glyph.RemoveObserver
 
 
-class ListObservableDelegate<T> : ObservableDelegate<T> {
+class ListEmitter<T> : Emitter<T> {
 
     private val list = mutableListOf<Subscription>()
 

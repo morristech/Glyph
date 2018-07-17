@@ -1,8 +1,8 @@
 package io.lamart.glyph.observables.operators
 
 import io.lamart.glyph.Observer
-import io.lamart.glyph.observables.Observable
-import io.lamart.glyph.observables.RemoveObserver
+import io.lamart.glyph.Observable
+import io.lamart.glyph.RemoveObserver
 
 fun <T> Observable<T>.filter(predicate: (T) -> Boolean): Observable<T> = FilterObservable(this, predicate)
 

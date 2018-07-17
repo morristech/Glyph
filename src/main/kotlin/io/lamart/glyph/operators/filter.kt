@@ -4,7 +4,7 @@ import io.lamart.glyph.Glyph
 import io.lamart.glyph.OptionalGlyph
 
 fun <T> Glyph<T>.filter(predicate: T.(T) -> Boolean): OptionalGlyph<T> =
-        FilterOptionalGlyph(this.toOptional(), predicate)
+        FilterGlyph(this, predicate)
 
 private class FilterGlyph<T>(
         private val glyph: Glyph<T>,

@@ -2,7 +2,7 @@ package io.lamart.glyph.composition
 
 import io.lamart.glyph.composition.house.HouseFeatures
 import io.lamart.glyph.composition.user.UserFeatures
-import io.lamart.glyph.observables.Observable
+import io.lamart.glyph.Observable
 
 interface StateFeatures : UserFeatures, HouseFeatures {
 

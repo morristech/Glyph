@@ -22,7 +22,7 @@ private class InterceptGlyph<T>(
 
 fun <T> OptionalGlyph<T>.intercept(
         getState: OptionalGlyph<T>.() -> T? = { getState() },
-        setState: OptionalGlyph<T>.(T) -> Unit = { it -> setState(it) }
+        setState: OptionalGlyph<T>.(T) -> Unit = { state -> setState(state) }
 ): OptionalGlyph<T> = InterceptOptionalGlyph(this, getState, setState)
 
 private class InterceptOptionalGlyph<T>(
