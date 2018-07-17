@@ -5,7 +5,7 @@ import io.lamart.glyph.Observer
 
 open class SynchronizedGlyph<T>(
         private var state: T,
-        private val observer: Observer<T>,
+        private val observer: Observer<T> = {},
         private val lock: Any = Any()
 ) : Glyph<T> {
 

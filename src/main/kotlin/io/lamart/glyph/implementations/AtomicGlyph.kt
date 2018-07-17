@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicReference
 
 open class AtomicGlyph<T>(
         state: T,
-        private val observer: Observer<T>
+        private val observer: Observer<T> = {}
 ) : Glyph<T> {
 
     private val state = AtomicReference<T>(state)

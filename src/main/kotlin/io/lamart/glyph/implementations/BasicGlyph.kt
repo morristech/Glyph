@@ -5,7 +5,7 @@ import io.lamart.glyph.Observer
 
 open class BasicGlyph<T>(
         private var state: T,
-        private val observer: Observer<T>
+        private val observer: Observer<T> = {}
 ) : Glyph<T> {
 
     override fun getState(): T = state
