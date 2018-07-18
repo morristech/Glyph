@@ -5,7 +5,7 @@ import io.lamart.glyph.composition.house.HouseInteractor
 import io.lamart.glyph.composition.user.User
 import io.lamart.glyph.composition.user.UserFeatures
 import io.lamart.glyph.composition.user.UserInteractor
-import io.lamart.glyph.implementations.BasicGlyph
+import io.lamart.glyph.implementations.SimpleGlyph
 import io.lamart.glyph.observables.ListEmitter
 import io.lamart.glyph.Observable
 import io.lamart.glyph.observables.operators.prepend
@@ -24,7 +24,7 @@ class StateInteractor(
 
         fun newInstance(): StateInteractor {
             val delegate = ListEmitter<State>()
-            val glyph = BasicGlyph(State(), delegate)
+            val glyph = SimpleGlyph(State(), delegate)
             val observable = delegate.prepend(glyph)
 
             val userFeatures: UserFeatures = glyph

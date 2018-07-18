@@ -19,3 +19,4 @@ private class MapObservable<T, R>(
             observable.addObserver { state -> observer(map(state)) }
 
 }
+
