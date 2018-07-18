@@ -1,20 +1,31 @@
 package io.lamart.glyph
 
-interface OptionalGlyph<T> {
+import io.lamart.glyph.operators.*
 
-    fun getState(): T?
+interface OptionalGlyph<T> : OptionalGlyphSource<T> {
 
-    fun setState(state: T)
+    fun <R> compose(
+            map: T.() -> R,
+            reduce: T.(R) -> T
+    ): OptionalGlyph<R> = ComposeOptionalGlyph(this, map, reduce)
 
-    fun setState(transform: T.(T) -> T) {
-        getState()?.let { transform(it, it) }?.let { setState(it) }
-    }
+    fun filter(predicate: T.(T) -> Boolean): OptionalGlyph<T> =
+            FilterOptionalGlyph(this, predicate)
 
-    fun setStateIf(predicate: T.(T) -> Boolean, transform: T.(T) -> T) {
-        getState()
-                ?.takeIf { predicate(it, it) }
-                ?.let { transform(it, it) }
-                ?.let(::setState)
-    }
+    fun intercept(
+            getState: OptionalGlyph<T>.() -> T? = { getState() },
+            setState: OptionalGlyph<T>.(T) -> Unit = { state -> setState(state) }
+    ): OptionalGlyph<T> = InterceptOptionalGlyph(this, getState, setState)
+
+    fun listen(
+            getState: (T?) -> Unit = { },
+            setState: (T) -> Unit = { }
+    ): OptionalGlyph<T> = ListenOptionalGlyph(this, getState, setState)
+
+    @Suppress("UNCHECKED_CAST")
+    fun <R : T> to(): OptionalGlyph<R> = to({ this as? R })
+
+    fun <R : T> to(block: T.() -> R?): OptionalGlyph<R> = ToOptionalGlyph(this, block)
+
 
 }

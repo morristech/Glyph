@@ -1,7 +1,6 @@
-package io.lamart.glyph.implementations
+package io.lamart.glyph.implementation
 
 import io.lamart.glyph.Glyph
-import io.lamart.glyph.Observer
 import java.util.concurrent.atomic.AtomicReference
 
 open class AtomicGlyph<T>(
@@ -9,12 +8,12 @@ open class AtomicGlyph<T>(
         private val observer: Observer<T> = {}
 ) : Glyph<T> {
 
-    private val state = AtomicReference<T>(state)
+    private val reference = AtomicReference<T>(state)
 
-    override fun getState(): T = state.get()
+    override fun getState(): T = reference.get()
 
     override fun setState(state: T) {
-        this.state.set(state)
+        reference.set(state)
         observer(state)
     }
 

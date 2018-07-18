@@ -3,8 +3,6 @@ package io.lamart.glyph.composition
 import io.lamart.glyph.composition.door.Door
 import io.lamart.glyph.composition.door.Location
 import io.lamart.glyph.composition.user.User
-import io.lamart.glyph.observables.operators.map
-import io.lamart.glyph.observables.operators.test
 import org.junit.Test
 
 

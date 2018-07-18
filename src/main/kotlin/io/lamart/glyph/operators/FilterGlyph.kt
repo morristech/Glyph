@@ -3,10 +3,7 @@ package io.lamart.glyph.operators
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.OptionalGlyph
 
-fun <T> Glyph<T>.filter(predicate: T.(T) -> Boolean): OptionalGlyph<T> =
-        FilterGlyph(this, predicate)
-
-private class FilterGlyph<T>(
+internal class FilterGlyph<T>(
         private val glyph: Glyph<T>,
         private val predicate: T.(T) -> Boolean
 ) : OptionalGlyph<T> {
@@ -17,10 +14,7 @@ private class FilterGlyph<T>(
 
 }
 
-fun <T> OptionalGlyph<T>.filter(predicate: T.(T) -> Boolean): OptionalGlyph<T> =
-        FilterOptionalGlyph(this, predicate)
-
-private class FilterOptionalGlyph<T>(
+internal class FilterOptionalGlyph<T>(
         private val glyph: OptionalGlyph<T>,
         private val predicate: T.(T) -> Boolean
 ) : OptionalGlyph<T> {

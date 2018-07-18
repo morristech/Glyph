@@ -1,13 +1,13 @@
-package io.lamart.glyph.implementations
+package io.lamart.glyph.implementation
 
 import io.lamart.glyph.Glyph
-import io.lamart.glyph.Observer
 
 open class SynchronizedGlyph<T>(
         private var state: T,
-        private val observer: Observer<T> = {},
-        private val lock: Any = Any()
+        private val observer: Observer<T> = {}
 ) : Glyph<T> {
+
+    private val lock: Any = Any()
 
     override fun getState(): T = synchronized(lock) { state }
 
