@@ -25,7 +25,7 @@ private class FlatMapObservable<T, R>(
 ) : Observable<R> {
 
     private val lock = Any()
-    private val removerObservers = mutableListOf<RemoveObserver>()
+    private val removeObservers = mutableListOf<RemoveObserver>()
 
     override fun addObserver(observer: Observer<R>): RemoveObserver {
         val removeObserver = observable.addObserver { state ->
@@ -41,13 +41,13 @@ private class FlatMapObservable<T, R>(
     }
 
     private fun addToRemoveObservers(removeObserver: RemoveObserver) =
-            synchronized(lock, { removerObservers.add(removeObserver) })
+            synchronized(lock, { removeObservers.add(removeObserver) })
 
     private fun clearRemoveObservers() {
         synchronized(lock, {
-            val list = removerObservers.toList()
+            val list = removeObservers.toList()
 
-            removerObservers.clear()
+            removeObservers.clear()
             list
         }).forEach { removeObserver -> removeObserver() }
     }
