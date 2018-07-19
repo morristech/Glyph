@@ -7,9 +7,9 @@ open class SimpleGlyph<T>(
         private val observer: Observer<T> = {}
 ) : Glyph<T> {
 
-    override fun getState(): T = state
+    override fun get(): T = state
 
-    override fun setState(state: T) {
+    override fun set(state: T) {
         this.state = state
         observer(state)
     }

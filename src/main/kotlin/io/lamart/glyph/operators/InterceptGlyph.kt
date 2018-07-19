@@ -9,9 +9,9 @@ internal class InterceptGlyph<T>(
         private val setState: Glyph<T>.(T) -> Unit
 ) : Glyph<T> {
 
-    override fun getState(): T = getState(glyph)
+    override fun get(): T = getState(glyph)
 
-    override fun setState(state: T) = setState(glyph, state)
+    override fun set(state: T) = setState(glyph, state)
 
 }
 
@@ -21,8 +21,8 @@ internal class InterceptOptionalGlyph<T>(
         private val setState: OptionalGlyph<T>.(T) -> Unit
 ) : OptionalGlyph<T> {
 
-    override fun getState(): T? = getState(glyph)
+    override fun get(): T? = getState(glyph)
 
-    override fun setState(state: T) = setState(glyph, state)
+    override fun set(state: T) = setState(glyph, state)
 
 }

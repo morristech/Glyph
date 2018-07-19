@@ -8,9 +8,9 @@ internal class FilterGlyph<T>(
         private val predicate: T.(T) -> Boolean
 ) : OptionalGlyph<T> {
 
-    override fun getState(): T? = glyph.getState().takeIf { predicate(it, it) }
+    override fun get(): T? = glyph.get().takeIf { predicate(it, it) }
 
-    override fun setState(state: T) = glyph.setState { state }
+    override fun set(state: T) = glyph.setState { state }
 
 }
 
@@ -19,8 +19,8 @@ internal class FilterOptionalGlyph<T>(
         private val predicate: T.(T) -> Boolean
 ) : OptionalGlyph<T> {
 
-    override fun getState(): T? = glyph.getState()?.takeIf { predicate(it, it) }
+    override fun get(): T? = glyph.get()?.takeIf { predicate(it, it) }
 
-    override fun setState(state: T) = glyph.setState { state }
+    override fun set(state: T) = glyph.set { state }
 
 }

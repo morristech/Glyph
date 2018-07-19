@@ -13,8 +13,8 @@ interface OptionalGlyph<T> : OptionalGlyphSource<T> {
             FilterOptionalGlyph(this, predicate)
 
     fun intercept(
-            getState: OptionalGlyph<T>.() -> T? = { getState() },
-            setState: OptionalGlyph<T>.(T) -> Unit = { state -> setState(state) }
+            getState: OptionalGlyph<T>.() -> T? = { get() },
+            setState: OptionalGlyph<T>.(T) -> Unit = { state -> this.set(state) }
     ): OptionalGlyph<T> = InterceptOptionalGlyph(this, getState, setState)
 
     fun listen(

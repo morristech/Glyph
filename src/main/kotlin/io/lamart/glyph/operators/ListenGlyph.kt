@@ -9,10 +9,10 @@ internal class ListenGlyph<T>(
         private val setState: (T) -> Unit
 ) : Glyph<T> {
 
-    override fun getState(): T = glyph.getState().also(getState)
+    override fun get(): T = glyph.get().also(getState)
 
-    override fun setState(state: T) {
-        glyph.setState(state)
+    override fun set(state: T) {
+        glyph.set(state)
         setState.invoke(state)
     }
 
@@ -24,10 +24,10 @@ internal class ListenOptionalGlyph<T>(
         private val setState: (T) -> Unit
 ) : OptionalGlyph<T> {
 
-    override fun getState(): T? = glyph.getState().also(getState)
+    override fun get(): T? = glyph.get().also(getState)
 
-    override fun setState(state: T) {
-        glyph.setState(state)
+    override fun set(state: T) {
+        glyph.set(state)
         setState.invoke(state)
     }
 

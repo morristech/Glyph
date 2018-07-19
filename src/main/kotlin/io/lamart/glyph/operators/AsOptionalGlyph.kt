@@ -5,8 +5,8 @@ import io.lamart.glyph.OptionalGlyph
 
 internal class AsOptionalGlyph<T>(private val glyph: Glyph<T>) : OptionalGlyph<T> {
 
-    override fun getState(): T? = glyph.getState()
+    override fun get(): T? = glyph.get()
 
-    override fun setState(state: T) = glyph.setState(state)
+    override fun set(state: T) = glyph.set(state)
 
 }

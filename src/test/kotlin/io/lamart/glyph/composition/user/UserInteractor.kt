@@ -9,8 +9,8 @@ class UserInteractor(
 ) : UserFeatures, Glyph<User> by glyph {
 
     override fun login(name: String, pass: String) {
-        if (getState().isNotLoggedIn) {
-            setState(User.LoggingIn)
+        if (get().isNotLoggedIn) {
+            this@UserInteractor.set(User.LoggingIn)
             authenticate(name, pass)
         }
     }

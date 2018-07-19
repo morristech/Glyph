@@ -9,9 +9,9 @@ open class SynchronizedGlyph<T>(
 
     private val lock: Any = Any()
 
-    override fun getState(): T = synchronized(lock) { state }
+    override fun get(): T = synchronized(lock) { state }
 
-    override fun setState(state: T) {
+    override fun set(state: T) {
         synchronized(lock) { this.state = state }
         observer(state)
     }

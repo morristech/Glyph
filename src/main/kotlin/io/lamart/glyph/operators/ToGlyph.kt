@@ -8,9 +8,9 @@ internal class ToGlyph<out T, R : T>(
         private val block: T.() -> R?
 ) : OptionalGlyph<R> {
 
-    override fun getState(): R? = glyph.getState().let(block)
+    override fun get(): R? = glyph.get().let(block)
 
-    override fun setState(state: R) = glyph.setState(state)
+    override fun set(state: R) = glyph.set(state)
 
 }
 
@@ -19,8 +19,8 @@ internal class ToOptionalGlyph<out T, R : T>(
         private val block: T.() -> R?
 ) : OptionalGlyph<R> {
 
-    override fun getState(): R? = glyph.getState()?.let(block)
+    override fun get(): R? = glyph.get()?.let(block)
 
-    override fun setState(state: R) = glyph.setState(state)
+    override fun set(state: R) = glyph.set(state)
 
 }

@@ -2,19 +2,19 @@ package io.lamart.glyph
 
 interface GlyphSource<T> {
 
-    fun getState(): T
+    fun get(): T
 
-    fun setState(state: T)
+    fun set(state: T)
 
-    fun setState(transform: T.(T) -> T) {
-        getState().let { transform(it, it) }.let { setState(it) }
+    fun set(transform: T.(T) -> T) {
+        get().let { transform(it, it) }.let { this@GlyphSource.set(it) }
     }
 
-    fun setStateIf(predicate: T.(T) -> Boolean, transform: T.(T) -> T) {
-        getState()
+    fun setIf(predicate: T.(T) -> Boolean, transform: T.(T) -> T) {
+        get()
                 .takeIf { predicate(it, it) }
                 ?.let { transform(it, it) }
-                ?.let(::setState)
+                ?.let(::set)
     }
 
 }

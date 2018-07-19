@@ -10,9 +10,9 @@ open class AtomicGlyph<T>(
 
     private val reference = AtomicReference<T>(state)
 
-    override fun getState(): T = reference.get()
+    override fun get(): T = reference.get()
 
-    override fun setState(state: T) {
+    override fun set(state: T) {
         reference.set(state)
         observer(state)
     }
