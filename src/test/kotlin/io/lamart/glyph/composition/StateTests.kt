@@ -18,8 +18,8 @@ class StateTests {
                     assertValueAt(0, { isNotLoggedIn })
                     assertValueAt(1, { isLoggingIn })
                     assertValueAt(2, { isLoggedIn })
-                    valueAt(3, { assertFrontDoor({ isOpen }) })
-                    valueAt(4, { assertFrontDoor({ !isOpen }) })
+                    valueAt(3, { assertFrontDoor({ this is Door.Open }) })
+                    valueAt(4, { assertFrontDoor({ this is Door.Closed }) })
                     assertValueAt(5, { isNotLoggedIn })
                 }
 

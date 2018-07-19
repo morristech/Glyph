@@ -4,10 +4,10 @@ import io.lamart.glyph.Glyph
 import io.lamart.glyph.OptionalGlyph
 
 fun <K, V> Glyph<Map<K, V>>.composeMap(key: K): OptionalGlyph<V> =
-        ComposeMapGlyph(this@composeMap, key)
+        ComposeMapGlyph(this, key)
 
 fun <K, V> OptionalGlyph<Map<K, V>>.composeMap(key: K): OptionalGlyph<V> =
-        ComposeMapOptionalGlyph(this@composeMap, key)
+        ComposeMapOptionalGlyph(this, key)
 
 class ComposeMapGlyph<K, V>(
         private val glyph: Glyph<Map<K, V>>,

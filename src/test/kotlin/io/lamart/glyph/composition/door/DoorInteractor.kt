@@ -4,8 +4,8 @@ import io.lamart.glyph.OptionalGlyph
 
 class DoorInteractor(glyph: OptionalGlyph<Door>) : DoorFeatures, OptionalGlyph<Door> by glyph {
 
-    override fun open() = set { copy(isOpen = true) }
+    override fun open() = set { Door.Open(location) }
 
-    override fun close() = set { copy(isOpen = false) }
+    override fun close() = set { Door.Closed(location) }
 
 }

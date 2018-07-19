@@ -16,9 +16,9 @@ open class SynchronizedGlyph<T>(
         observer(state)
     }
 
-    override fun setState(transform: T.(T) -> T) = synchronized(lock) { super.setState(transform) }
+    override fun set(transform: T.(T) -> T) = synchronized(lock) { super.set(transform) }
 
-    override fun setStateIf(predicate: T.(T) -> Boolean, transform: T.(T) -> T) =
-            synchronized(lock) { super.setStateIf(predicate, transform) }
+    override fun setIf(predicate: T.(T) -> Boolean, transform: T.(T) -> T) =
+            synchronized(lock) { super.setIf(predicate, transform) }
 
 }

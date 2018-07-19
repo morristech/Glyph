@@ -5,10 +5,10 @@ import io.lamart.glyph.OptionalGlyph
 
 
 fun <T> Glyph<List<T>>.composeList(predicate: (T) -> Boolean): OptionalGlyph<T> =
-        ComposeListGlyph(this@composeList, predicate)
+        ComposeListGlyph(this, predicate)
 
 fun <T> OptionalGlyph<List<T>>.composeList(predicate: (T) -> Boolean): OptionalGlyph<T> =
-        ComposeListOptionalGlyph(this@composeList, predicate)
+        ComposeListOptionalGlyph(this, predicate)
 
 class ComposeListGlyph<T>(
         private val glyph: Glyph<List<T>>,

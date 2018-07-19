@@ -10,7 +10,7 @@ internal class FilterGlyph<T>(
 
     override fun get(): T? = glyph.get().takeIf { predicate(it, it) }
 
-    override fun set(state: T) = glyph.setState { state }
+    override fun set(state: T) = glyph.set { state }
 
 }
 

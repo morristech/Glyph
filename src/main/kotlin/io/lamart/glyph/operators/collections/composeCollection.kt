@@ -4,10 +4,10 @@ import io.lamart.glyph.Glyph
 import io.lamart.glyph.OptionalGlyph
 
 fun <T> Glyph<Collection<T>>.composeCollection(predicate: (T) -> Boolean): OptionalGlyph<T> =
-        ComposeCollectionGlyph(this@composeCollection, predicate)
+        ComposeCollectionGlyph(this, predicate)
 
 fun <T> OptionalGlyph<Collection<T>>.composeCollection(predicate: (T) -> Boolean): OptionalGlyph<T> =
-        ComposeCollectionOptionalGlyph(this@composeCollection, predicate)
+        ComposeCollectionOptionalGlyph(this, predicate)
 
 class ComposeCollectionGlyph<T>(
         private val glyph: Glyph<Collection<T>>,
