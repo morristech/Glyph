@@ -12,7 +12,7 @@ fun <T> OptionalGlyph<Collection<T>>.composeCollection(predicate: (T) -> Boolean
 class ComposeCollectionGlyph<T>(
         private val glyph: Glyph<Collection<T>>,
         private val predicate: (T) -> Boolean
-) : OptionalGlyph<T> by ComposeCollectionOptionalGlyph(glyph.asOptional(), predicate)
+) : OptionalGlyph<T> by ComposeCollectionOptionalGlyph(glyph.toOptional(), predicate)
 
 open class ComposeCollectionOptionalGlyph<T>(
         private val glyph: OptionalGlyph<Collection<T>>,

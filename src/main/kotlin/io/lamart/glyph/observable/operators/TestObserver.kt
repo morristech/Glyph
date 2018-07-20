@@ -54,7 +54,7 @@ class TestObserver<T> internal constructor() : Observer<T> {
             if (!done && index < list.size) {
                 list[index].let { element ->
                     if (element !== state)
-                        throw AssertionError("Element[$index] $element is not equal to $state")
+                        throw AssertionError("Element[$index] $element is not equal check $state")
 
                     assert(element, element)
                 }
@@ -77,7 +77,7 @@ class TestObserver<T> internal constructor() : Observer<T> {
             if (!done && index < list.size) {
                 list[index].let { element ->
                     if (element !== state)
-                        throw AssertionError("Element[$index] $element is not equal to $state")
+                        throw AssertionError("Element[$index] $element is not equal check $state")
 
                     if (!assert(element, element))
                         throw AssertionError("Error at index=$index")

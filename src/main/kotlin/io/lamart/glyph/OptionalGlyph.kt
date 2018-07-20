@@ -4,6 +4,9 @@ import io.lamart.glyph.operators.*
 
 interface OptionalGlyph<T> : OptionalGlyphSource<T> {
 
+    fun <R : T> check(predicate: (T) -> Boolean): OptionalGlyph<R> =
+            CheckOptionalGlyph(this, predicate)
+
     fun <R> compose(
             map: T.() -> R,
             reduce: T.(R) -> T
@@ -21,11 +24,5 @@ interface OptionalGlyph<T> : OptionalGlyphSource<T> {
             getState: (T?) -> Unit = { },
             setState: (T) -> Unit = { }
     ): OptionalGlyph<T> = ListenOptionalGlyph(this, getState, setState)
-
-    @Suppress("UNCHECKED_CAST")
-    fun <R : T> to(): OptionalGlyph<R> = to({ this as? R })
-
-    fun <R : T> to(block: T.() -> R?): OptionalGlyph<R> = ToOptionalGlyph(this, block)
-
 
 }

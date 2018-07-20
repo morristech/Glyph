@@ -13,7 +13,7 @@ fun <T> OptionalGlyph<List<T>>.composeList(predicate: (T) -> Boolean): OptionalG
 class ComposeListGlyph<T>(
         private val glyph: Glyph<List<T>>,
         private val predicate: (T) -> Boolean
-) : OptionalGlyph<T> by ComposeListOptionalGlyph(glyph.asOptional(), predicate)
+) : OptionalGlyph<T> by ComposeListOptionalGlyph(glyph.toOptional(), predicate)
 
 open class ComposeListOptionalGlyph<T>(
         private val glyph: OptionalGlyph<List<T>>,

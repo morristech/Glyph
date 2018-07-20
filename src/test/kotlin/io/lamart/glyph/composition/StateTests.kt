@@ -5,7 +5,6 @@ import io.lamart.glyph.composition.door.Location
 import io.lamart.glyph.composition.user.User
 import org.junit.Test
 
-
 class StateTests {
 
     @Test

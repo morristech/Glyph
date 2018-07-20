@@ -12,7 +12,7 @@ fun <T> OptionalGlyph<Set<T>>.composeSet(predicate: (T) -> Boolean): OptionalGly
 class ComposeSetGlyph<T>(
         private val glyph: Glyph<Set<T>>,
         private val predicate: (T) -> Boolean
-) : OptionalGlyph<T> by ComposeSetOptionalGlyph(glyph.asOptional(), predicate)
+) : OptionalGlyph<T> by ComposeSetOptionalGlyph(glyph.toOptional(), predicate)
 
 open class ComposeSetOptionalGlyph<T>(
         private val glyph: OptionalGlyph<Set<T>>,
