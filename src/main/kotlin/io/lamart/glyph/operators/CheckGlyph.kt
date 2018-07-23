@@ -5,11 +5,11 @@ import io.lamart.glyph.OptionalGlyph
 
 internal class CheckGlyph<out T, R : T>(
         private val glyph: Glyph<T>,
-        private val predicate: (T) -> Boolean
+        private val predicate: T.(T) -> Boolean
 ) : OptionalGlyph<R> {
 
     @Suppress("UNCHECKED_CAST")
-    override fun get(): R? = glyph.get().takeIf(predicate)?.let { it as R }
+    override fun get(): R? = glyph.get().takeIf { predicate(it, it) }?.let { it as R }
 
     override fun set(state: R) = glyph.set(state)
 
@@ -17,11 +17,11 @@ internal class CheckGlyph<out T, R : T>(
 
 internal class CheckOptionalGlyph<out T, R : T>(
         private val glyph: OptionalGlyph<T>,
-        private val predicate: (T) -> Boolean
+        private val predicate: T.(T) -> Boolean
 ) : OptionalGlyph<R> {
 
     @Suppress("UNCHECKED_CAST")
-    override fun get(): R? = glyph.get()?.takeIf(predicate)?.let { it as R }
+    override fun get(): R? = glyph.get()?.takeIf { predicate(it, it) }?.let { it as R }
 
     override fun set(state: R) = glyph.set(state)
 

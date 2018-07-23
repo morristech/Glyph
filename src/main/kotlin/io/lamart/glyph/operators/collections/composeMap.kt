@@ -22,10 +22,11 @@ open class ComposeMapOptionalGlyph<K, V>(
     override fun get(): V? = glyph.get()?.get(key)
 
     override fun set(state: V) {
-        glyph.get()
-                ?.toMutableMap()
-                ?.apply { put(key, state) }
-                ?.let(glyph::set)
+        glyph.set {
+            toMutableMap().apply {
+                put(key, state)
+            }
+        }
     }
 
 }

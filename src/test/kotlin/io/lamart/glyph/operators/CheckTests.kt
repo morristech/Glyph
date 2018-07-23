@@ -16,23 +16,11 @@ class CheckTests {
         val glyph = SimpleGlyph<User>(User.NotLoggedIn)
         val loggedInGlyph = glyph.check<User.LoggedIn>({ it is User.LoggedIn })
 
-        loggedInGlyph.get()?.name?.let(::assertNull)
+        loggedInGlyph.get().let(::assertNull)
         loggedInGlyph.set(User.LoggedIn("Danny"))
-        loggedInGlyph.get()?.name.let(::assertNotNull)
+        loggedInGlyph.get().let(::assertNotNull)
         glyph.set(User.NotLoggedIn)
-        loggedInGlyph.get()?.name?.let(::assertNull)
-    }
-
-    @Test
-    fun testOptional() {
-        val glyph = SimpleGlyph<User>(User.NotLoggedIn).toOptional()
-        val loggedInGlyph = glyph.check<User.LoggedIn>({ it is User.LoggedIn })
-
-        loggedInGlyph.get()?.name?.let(::assertNull)
-        loggedInGlyph.set(User.LoggedIn("Danny"))
-        loggedInGlyph.get()?.name.let(::assertNotNull)
-        glyph.set(User.NotLoggedIn)
-        loggedInGlyph.get()?.name?.let(::assertNull)
+        loggedInGlyph.get().let(::assertNull)
     }
 
 }

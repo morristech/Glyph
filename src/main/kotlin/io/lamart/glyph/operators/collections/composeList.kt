@@ -23,18 +23,14 @@ open class ComposeListOptionalGlyph<T>(
     override fun get(): T? = glyph.get()?.find(predicate)
 
     override fun set(state: T) {
-        glyph.get()
-                ?.toMutableList()
-                ?.also { replace(it, state) }
-                ?.let(glyph::set)
-    }
-
-    private fun replace(list: MutableList<T>, state: T) =
-            with(list) {
+        glyph.set {
+            toMutableList().apply {
                 indexOfFirst(predicate)
                         .takeIf { it != -1 }
                         ?.also { index -> set(index, state) }
             }
+        }
+    }
 
 }
 

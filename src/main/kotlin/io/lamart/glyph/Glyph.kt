@@ -4,7 +4,7 @@ import io.lamart.glyph.operators.*
 
 interface Glyph<T> : GlyphSource<T> {
 
-    fun <R : T> check(predicate: (T) -> Boolean): OptionalGlyph<R> =
+    fun <R : T> check(predicate: T.(T) -> Boolean): OptionalGlyph<R> =
             CheckGlyph(this, predicate)
 
     fun <R> compose(

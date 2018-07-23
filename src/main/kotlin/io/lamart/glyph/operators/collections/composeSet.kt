@@ -22,16 +22,12 @@ open class ComposeSetOptionalGlyph<T>(
     override fun get(): T? = glyph.get()?.find(predicate)
 
     override fun set(state: T) {
-        glyph.get()
-                ?.toMutableSet()
-                ?.also { replace(it, state) }
-                ?.let(glyph::set)
-    }
-
-    private fun replace(list: MutableSet<T>, state: T) =
-            with(list) {
+        glyph.set {
+            toMutableSet().apply {
                 find(predicate)?.also { remove(it); add(state) }
             }
+        }
+    }
 
 }
 

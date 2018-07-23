@@ -11,8 +11,7 @@ internal class ComposeGlyph<T, R>(
 
     override fun get(): R = glyph.get().let(map)
 
-    override fun set(state: R) =
-            glyph.get().let { reduce(it, state) }.let(glyph::set)
+    override fun set(state: R) = glyph.set { reduce(it, state) }
 
 }
 
@@ -24,8 +23,6 @@ internal class ComposeOptionalGlyph<T, R>(
 
     override fun get(): R? = glyph.get()?.let(map)
 
-    override fun set(state: R) {
-        glyph.get()?.let { reduce(it, state) }?.let(glyph::set)
-    }
+    override fun set(state: R) = glyph.set { reduce(it, state) }
 
 }
