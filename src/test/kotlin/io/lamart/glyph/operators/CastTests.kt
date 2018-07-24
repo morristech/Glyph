@@ -4,7 +4,7 @@ import io.lamart.glyph.implementation.SimpleGlyph
 import org.junit.Assert.*
 import org.junit.Test
 
-class CheckTests {
+class CastTests {
 
     sealed class User {
         object NotLoggedIn : User()
@@ -14,7 +14,9 @@ class CheckTests {
     @Test
     fun test() {
         val glyph = SimpleGlyph<User>(User.NotLoggedIn)
-        val loggedInGlyph = glyph.check<User.LoggedIn>({ it is User.LoggedIn })
+        val loggedInGlyph = glyph
+                .filter { it is User.LoggedIn }
+                .cast<User.LoggedIn>()
 
         loggedInGlyph.get().let(::assertNull)
         loggedInGlyph.set(User.LoggedIn("Danny"))

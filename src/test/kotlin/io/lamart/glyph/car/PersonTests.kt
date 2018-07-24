@@ -1,7 +1,7 @@
 package io.lamart.glyph.car
 
 import io.lamart.glyph.implementation.SimpleGlyph
-import io.lamart.glyph.emitter.ListEmitter
+import io.lamart.glyph.observable.emitter.ListEmitter
 import org.junit.Test
 
 

@@ -5,7 +5,7 @@ import io.lamart.glyph.composition.house.HouseInteractor
 import io.lamart.glyph.composition.user.User
 import io.lamart.glyph.composition.user.UserFeatures
 import io.lamart.glyph.composition.user.UserInteractor
-import io.lamart.glyph.emitter.ListEmitter
+import io.lamart.glyph.observable.emitter.ListEmitter
 import io.lamart.glyph.implementation.SimpleGlyph
 import io.lamart.glyph.observable.Observable
 
