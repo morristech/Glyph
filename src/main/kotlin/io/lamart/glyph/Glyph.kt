@@ -1,6 +1,7 @@
 package io.lamart.glyph
 
 import io.lamart.glyph.operators.*
+import kotlin.properties.ReadWriteProperty
 
 interface Glyph<T> : GlyphSource<T> {
 
@@ -24,7 +25,9 @@ interface Glyph<T> : GlyphSource<T> {
             setState: (T) -> Unit = { }
     ): Glyph<T> = ListenGlyph(this, getState, setState)
 
-    fun toOptional(): OptionalGlyph<T> = ToOptionalGlyph(this)
+    fun toOptional(): OptionalGlyph<T> = toOptional(this)
+
+    fun toProperty(): ReadWriteProperty<Any, T> = ToPropertyGlyph(this)
 
 }
 

@@ -10,11 +10,4 @@ interface OptionalGlyphSource<T> {
         get()?.let { transform(it, it) }?.let { set(it) }
     }
 
-    fun setIf(predicate: T.(T) -> Boolean, transform: T.(T) -> T) {
-        get()
-                ?.takeIf { predicate(it, it) }
-                ?.let { transform(it, it) }
-                ?.let(::set)
-    }
-
 }
