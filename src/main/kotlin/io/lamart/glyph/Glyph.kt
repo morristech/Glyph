@@ -25,7 +25,7 @@ interface Glyph<T> : GlyphSource<T> {
             setState: (T) -> Unit = { }
     ): Glyph<T> = ListenGlyph(this, getState, setState)
 
-    fun toOptional(): OptionalGlyph<T> = toOptional(this)
+    fun toOptional(): OptionalGlyph<T> = ToOptional(this)
 
     fun toProperty(): ReadWriteProperty<Any, T> = ToPropertyGlyph(this)
 
