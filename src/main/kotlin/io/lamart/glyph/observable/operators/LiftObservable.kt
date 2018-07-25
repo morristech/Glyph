@@ -5,11 +5,11 @@ import io.lamart.glyph.observable.Observable
 import io.lamart.glyph.observable.RemoveObserver
 
 
-internal class WrapObservable<T>(
+internal class LiftObservable<T, R>(
         private val observable: Observable<T>,
-        private val wrap: (Observer<T>) -> Observer<T>
-) : Observable<T> {
+        private val lift: (Observer<R>) -> Observer<T>
+) : Observable<R> {
 
-    override fun addObserver(observer: Observer<T>): RemoveObserver =
-            wrap(observer).let(observable::addObserver)
+    override fun addObserver(observer: Observer<R>): RemoveObserver =
+            lift(observer).let(observable::addObserver)
 }

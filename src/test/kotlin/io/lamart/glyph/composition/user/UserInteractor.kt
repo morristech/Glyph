@@ -17,18 +17,20 @@ class UserInteractor(
 
     private fun authenticate(name: String, pass: String) {
         network.authenticate(name, pass) { token, error ->
-            setIf({ isLoggingIn }, {
-                when {
-                    error != null -> User.NotLoggedIn(error.message)
-                    token != null -> User.LoggedIn(token)
-                    else -> it
+            if (get().isLoggingIn)
+                set {
+                    when {
+                        error != null -> User.NotLoggedIn(error.message)
+                        token != null -> User.LoggedIn(token)
+                        else -> it
+                    }
                 }
-            })
         }
     }
 
     override fun logout() {
-        setIf({ isLoggedIn }, { User.NotLoggedIn() })
+        if (get().isLoggedIn)
+            set(User.NotLoggedIn())
     }
 
 }

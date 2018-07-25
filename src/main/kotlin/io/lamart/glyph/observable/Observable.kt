@@ -6,14 +6,19 @@ import io.lamart.glyph.observable.operators.*
 
 interface Observable<T> : ObservableSource<T> {
 
-    fun delegate(delegate: (T, Observer<T>) -> Unit): Observable<T> =
-            DelegateObservable(this, delegate)
+    fun <R> cast(): Observable<R> = CastObservable(this)
 
     fun distinct(): Observable<T> =
             DistinctObservable(this)
 
     fun filter(predicate: (T) -> Boolean): Observable<T> =
             FilterObservable(this, predicate)
+
+    fun <R> flatMap(delegate: (T, Observer<R>) -> Unit): Observable<R> =
+            FlatMapObservable(this, delegate)
+
+    fun <R> flatMap(delegate: (T) -> Iterable<R>): Observable<R> =
+            FlatMapIterableObservable(this, delegate)
 
     fun <R> map(block: (T) -> R): Observable<R> =
             MapObservable(this, block)
@@ -26,7 +31,7 @@ interface Observable<T> : ObservableSource<T> {
     fun test(block: TestObserver<T>.() -> Unit): RemoveObserver =
             TestObserver<T>().apply(block).let(::addObserver)
 
-    fun wrap(wrap: (Observer<T>) -> Observer<T>): Observable<T> =
-            WrapObservable(this, wrap)
+    fun <R> lift(wrap: (Observer<R>) -> Observer<T>): Observable<R> =
+            LiftObservable(this, wrap)
 
 }

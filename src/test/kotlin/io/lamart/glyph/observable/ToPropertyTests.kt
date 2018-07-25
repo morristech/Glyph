@@ -1,4 +1,4 @@
-package io.lamart.glyph
+package io.lamart.glyph.observable
 
 import io.lamart.glyph.implementation.SimpleGlyph
 import org.junit.Assert.assertEquals
