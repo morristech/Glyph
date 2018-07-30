@@ -12,7 +12,7 @@ class FlatMapTests {
         val emitter = ListEmitter<String>()
         val glyph = SimpleGlyph("", emitter)
 
-        emitter.flatMap { state, observer: Observer<Int> -> state.toInt().let { observer(it);observer(it) } }
+        emitter.delegate { state, observer: Observer<Int> -> state.toInt().let { observer(it);observer(it) } }
                 .test()
                 .assertValueAt(0) { it == 1 }
                 .assertValueAt(1) { it == 1 }

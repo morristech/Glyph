@@ -8,17 +8,17 @@ interface Observable<T> : ObservableSource<T> {
 
     fun <R> cast(): Observable<R> = CastObservable(this)
 
+    fun <R> delegate(delegate: (T, Observer<R>) -> Unit): Observable<R> =
+            DelegateObservable(this, delegate)
+
     fun distinct(): Observable<T> =
             DistinctObservable(this)
 
     fun filter(predicate: (T) -> Boolean): Observable<T> =
             FilterObservable(this, predicate)
 
-    fun <R> flatMap(delegate: (T, Observer<R>) -> Unit): Observable<R> =
-            FlatMapObservable(this, delegate)
-
     fun <R> flatMap(delegate: (T) -> Iterable<R>): Observable<R> =
-            FlatMapIterableObservable(this, delegate)
+            FlatMapObservable(this, delegate)
 
     fun <R> map(block: (T) -> R): Observable<R> =
             MapObservable(this, block)

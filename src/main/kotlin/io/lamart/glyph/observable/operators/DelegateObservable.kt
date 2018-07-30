@@ -4,12 +4,13 @@ import io.lamart.glyph.implementation.Observer
 import io.lamart.glyph.observable.Observable
 import io.lamart.glyph.observable.RemoveObserver
 
-internal class FlatMapObservable<T, R>(
+internal class DelegateObservable<T, R>(
         private val observable: Observable<T>,
-        private val factory: (T) -> Iterable<R>
+        private val delegate: (T, Observer<R>) -> Unit
 ) : Observable<R> {
 
     override fun addObserver(observer: Observer<R>): RemoveObserver =
-            observable.addObserver{ state -> factory(state).forEach(observer) }
+            observable.addObserver{ state -> delegate(state, observer) }
 
 }
+

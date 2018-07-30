@@ -15,10 +15,8 @@ internal class PrependObservable<T>(
 ) : Observable<T> {
 
     override fun addObserver(observer: Observer<T>): RemoveObserver {
-        val removeObserver = observable.addObserver(observer)
-
         glyph.get().let(observer)
-        return removeObserver
+        return observable.addObserver(observer)
     }
 }
 
