@@ -10,14 +10,17 @@ import io.lamart.glyph.observable.RemoveObserver
  */
 
 internal class PrependObservable<T>(
-        private val glyph: Glyph<T>,
-        private val observable: Observable<T>
+        private val observable: Observable<T>,
+        private val getState: () -> T
 ) : Observable<T> {
 
     override fun addObserver(observer: Observer<T>): RemoveObserver {
-        glyph.get().let(observer)
-        return observable.addObserver(observer)
+        val removeObserver = observable.addObserver(observer)
+
+        getState().let(observer)
+        return removeObserver
     }
+
 }
 
 

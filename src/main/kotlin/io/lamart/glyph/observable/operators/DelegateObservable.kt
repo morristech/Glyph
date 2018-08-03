@@ -13,4 +13,3 @@ internal class DelegateObservable<T, R>(
             observable.addObserver{ state -> delegate(state, observer) }
 
 }
-

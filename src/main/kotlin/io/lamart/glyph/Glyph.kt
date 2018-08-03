@@ -17,7 +17,7 @@ interface Glyph<T> : GlyphSource<T> {
 
     fun intercept(
             getState: Glyph<T>.() -> T = { get() },
-            setState: Glyph<T>.(T) -> Unit = { it -> this.set(it) }
+            setState: Glyph<T>.(T) -> Unit = { it -> set(it) }
     ): Glyph<T> = InterceptGlyph(this, getState, setState)
 
     fun listen(
