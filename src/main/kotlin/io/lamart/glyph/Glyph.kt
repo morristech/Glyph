@@ -1,7 +1,10 @@
 package io.lamart.glyph
 
+import io.lamart.glyph.implementation.SimpleGlyph
 import io.lamart.glyph.operators.*
 import kotlin.properties.ReadWriteProperty
+
+fun <T> T.toGlyph(): Glyph<T> = SimpleGlyph(this)
 
 interface Glyph<T> : GlyphSource<T> {
 
@@ -30,5 +33,3 @@ interface Glyph<T> : GlyphSource<T> {
     fun toProperty(): ReadWriteProperty<Any, T> = ToPropertyGlyph(this)
 
 }
-
-

@@ -10,7 +10,7 @@ class SynchronizedListEmitter<T> : Emitter<T> {
     private val list = mutableListOf<Subscription>()
 
     override fun invoke(state: T) =
-            synchronized(lock, { list.toList() }).forEach { observer -> observer(state) }
+            synchronized(lock, { list.toTypedArray() }).forEach { observer -> observer(state) }
 
     override fun addObserver(observer: Observer<T>): RemoveObserver {
         val subscription = Subscription(observer)
