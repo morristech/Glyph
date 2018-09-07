@@ -13,7 +13,7 @@ interface OptionalGlyph<T> : OptionalGlyphSource<T> {
     ): OptionalGlyph<R> = ComposeOptionalGlyph(this, map, reduce)
 
     fun filter(predicate: T.(T) -> Boolean): OptionalGlyph<T> =
-            FilterOptionalGlyph(this, predicate)
+            FilterOptionalGlyph(this, { predicate(it, it) })
 
     fun intercept(
             getState: OptionalGlyph<T>.() -> T? = { get() },
@@ -25,6 +25,6 @@ interface OptionalGlyph<T> : OptionalGlyphSource<T> {
             setState: (T) -> Unit = { }
     ): OptionalGlyph<T> = ListenOptionalGlyph(this, getState, setState)
 
-    fun toProperty(): ReadWriteProperty<Any, T?> = ToPropertyOptionalGlyph(this)
+    fun asProperty(): ReadWriteProperty<*, T?> = PropertyOptionalGlyph(this)
 
 }

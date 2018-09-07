@@ -6,7 +6,7 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 
-internal class ToPropertyGlyph<T>(private val glyph: Glyph<T>) : ReadWriteProperty<Any, T> {
+internal class PropertyGlyph<T>(private val glyph: Glyph<T>) : ReadWriteProperty<Any, T> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T = glyph.get()
 
@@ -14,7 +14,7 @@ internal class ToPropertyGlyph<T>(private val glyph: Glyph<T>) : ReadWriteProper
 
 }
 
-internal class ToPropertyOptionalGlyph<T>(private val glyph: OptionalGlyph<T>) : ReadWriteProperty<Any, T?> {
+internal class PropertyOptionalGlyph<T>(private val glyph: OptionalGlyph<T>) : ReadWriteProperty<Any, T?> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T? = glyph.get()
 

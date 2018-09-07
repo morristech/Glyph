@@ -1,6 +1,5 @@
 package io.lamart.glyph.observable
 
-import io.lamart.glyph.implementation.Observer
 import io.lamart.glyph.implementation.SimpleGlyph
 import io.lamart.glyph.observable.emitter.ListEmitter
 import org.junit.Test

@@ -1,6 +1,6 @@
 package io.lamart.glyph.observable.emitter
 
-import io.lamart.glyph.implementation.Observer
+import io.lamart.glyph.observable.Observer
 import io.lamart.glyph.observable.RemoveObserver
 
 
@@ -26,4 +26,5 @@ class SynchronizedListEmitter<T> : Emitter<T> {
         }
 
     }
+
 }

@@ -1,12 +1,12 @@
 package io.lamart.glyph.observable
 
-import io.lamart.glyph.implementation.SimpleGlyph
+import io.lamart.glyph.toGlyph
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ToPropertyTests {
 
-    private var name: String by SimpleGlyph("Danny").toProperty()
+    private var name: String by "Danny".toGlyph().asProperty()
 
     @Test
      fun test() {

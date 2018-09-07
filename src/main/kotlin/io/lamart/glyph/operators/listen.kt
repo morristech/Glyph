@@ -7,7 +7,7 @@ internal class ListenGlyph<T>(
         private val glyph: Glyph<T>,
         private val getState: (T) -> Unit,
         private val setState: (T) -> Unit
-) : Glyph<T> {
+) : Glyph<T> by glyph {
 
     override fun get(): T = glyph.get().also(getState)
 
@@ -22,7 +22,7 @@ internal class ListenOptionalGlyph<T>(
         private val glyph: OptionalGlyph<T>,
         private val getState: (T?) -> Unit,
         private val setState: (T) -> Unit
-) : OptionalGlyph<T> {
+) : OptionalGlyph<T> by glyph {
 
     override fun get(): T? = glyph.get().also(getState)
 

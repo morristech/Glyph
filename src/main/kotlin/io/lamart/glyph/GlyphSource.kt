@@ -1,13 +1,15 @@
 package io.lamart.glyph
 
+import io.lamart.glyph.observable.Observable
+
 interface GlyphSource<T> {
 
     fun get(): T
 
     fun set(state: T)
 
-    fun set(transform: T.(T) -> T) {
-        get().let { transform(it, it) }.let { set(it) }
-    }
+    fun reduce(block: T.(T) -> T) = get().let { block(it, it) }.let(::set)
+
+    fun observe(): Observable<T>
 
 }

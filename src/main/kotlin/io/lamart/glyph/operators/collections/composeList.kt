@@ -2,6 +2,7 @@ package io.lamart.glyph.operators.collections
 
 import io.lamart.glyph.Glyph
 import io.lamart.glyph.OptionalGlyph
+import io.lamart.glyph.observable.Observable
 
 
 fun <T> Glyph<List<T>>.composeList(predicate: (T) -> Boolean): OptionalGlyph<T> =
@@ -20,13 +21,15 @@ open class ComposeListOptionalGlyph<T>(
         private val predicate: (T) -> Boolean
 ) : OptionalGlyph<T> {
 
+    override fun observe(): Observable<T?> = glyph.observe().map { it?.find(predicate) }
+
     override fun get(): T? = glyph.get()?.find(predicate)
 
     override fun set(state: T) {
-        glyph.set {
+        glyph.reduce {
             toMutableList().apply {
                 indexOfFirst(predicate)
-                        .takeIf { it != -1 }
+                        .takeIf { index -> index != -1 }
                         ?.also { index -> set(index, state) }
             }
         }

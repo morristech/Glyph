@@ -4,22 +4,29 @@ import io.lamart.glyph.Glyph
 import io.lamart.glyph.observable.Observable
 import io.lamart.glyph.observable.emitter.Emitter
 import io.lamart.glyph.observable.emitter.SynchronizedListEmitter
-import java.util.concurrent.atomic.AtomicReference
 
-open class AtomicGlyph<T>(
-        state: T,
+
+class SynchronizedGlyph<T>(
+        private var state: T,
         private val emitter: Emitter<T> = SynchronizedListEmitter()
 ) : Glyph<T> {
 
-    private val reference = AtomicReference<T>(state)
+    val lock: Any = Any()
 
-    override fun get(): T = reference.get()
+    override fun get(): T = synchronized(lock) { state }
 
     override fun set(state: T) {
-        reference.set(state)
+        synchronized(lock) {
+            this.state = state
+        }
         emitter(state)
     }
 
+    override fun reduce(block: T.(T) -> T) =
+            synchronized(lock) { super.reduce(block) }
+
     override fun observe(): Observable<T> = emitter
+
+    fun synchronized(block: Glyph<T>.() -> Unit) = synchronized(lock) { block() }
 
 }

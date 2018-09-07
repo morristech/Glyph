@@ -16,7 +16,7 @@ interface Glyph<T> : GlyphSource<T> {
     ): Glyph<R> = ComposeGlyph(this, map, reduce)
 
     fun filter(predicate: T.(T) -> Boolean): OptionalGlyph<T> =
-            FilterGlyph(this, predicate)
+            FilterGlyph(this, { predicate(it, it) })
 
     fun intercept(
             getState: Glyph<T>.() -> T = { get() },
@@ -30,6 +30,12 @@ interface Glyph<T> : GlyphSource<T> {
 
     fun toOptional(): OptionalGlyph<T> = ToOptional(this)
 
-    fun toProperty(): ReadWriteProperty<Any, T> = ToPropertyGlyph(this)
+    fun asProperty(): ReadWriteProperty<Any, T> = PropertyGlyph(this)
+
+    companion object {
+
+        operator fun <T> invoke(state: T): Glyph<T> = SimpleGlyph(state)
+
+    }
 
 }

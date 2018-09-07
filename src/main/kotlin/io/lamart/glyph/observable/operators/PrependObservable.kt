@@ -1,7 +1,6 @@
 package io.lamart.glyph.observable.operators
 
-import io.lamart.glyph.Glyph
-import io.lamart.glyph.implementation.Observer
+import io.lamart.glyph.observable.Observer
 import io.lamart.glyph.observable.Observable
 import io.lamart.glyph.observable.RemoveObserver
 

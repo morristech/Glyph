@@ -1,7 +1,5 @@
 package io.lamart.glyph.observable
 
-import io.lamart.glyph.Glyph
-import io.lamart.glyph.implementation.Observer
 import io.lamart.glyph.observable.operators.*
 
 interface Observable<T> : ObservableSource<T> {
