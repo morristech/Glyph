@@ -1,8 +1,16 @@
 package io.lamart.glyph.observable
 
+import io.lamart.glyph.Observer
+import io.lamart.glyph.RemoveObserver
 import io.lamart.glyph.observable.operators.*
 
-interface Observable<T> : ObservableSource<T> {
+interface Observable<T> {
+
+    fun addObserver(observer: Observer<T>): RemoveObserver
+
+    operator fun plus(observer: Observer<T>): RemoveObserver = addObserver(observer)
+
+    operator fun Observer<T>.unaryPlus(): RemoveObserver = addObserver(this)
 
     fun <R> cast(): Observable<R> = CastObservable(this)
 
@@ -25,7 +33,7 @@ interface Observable<T> : ObservableSource<T> {
             MapObservable(this, block)
 
     fun prepend(getState: () -> T): Observable<T> =
-            PrependObservable( this, getState)
+            PrependObservable(this, getState)
 
     fun take(count: Long): Observable<T> = TakeObservable(this, count)
 

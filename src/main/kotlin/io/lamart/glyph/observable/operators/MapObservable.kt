@@ -1,8 +1,8 @@
 package io.lamart.glyph.observable.operators
 
-import io.lamart.glyph.observable.Observer
+import io.lamart.glyph.Observer
+import io.lamart.glyph.RemoveObserver
 import io.lamart.glyph.observable.Observable
-import io.lamart.glyph.observable.RemoveObserver
 
 /**
  * Creates an Observable that returns is applicable for a substate of the given Observable

@@ -5,10 +5,11 @@ import io.lamart.glyph.composition.house.HouseInteractor
 import io.lamart.glyph.composition.user.User
 import io.lamart.glyph.composition.user.UserFeatures
 import io.lamart.glyph.composition.user.UserInteractor
-import io.lamart.glyph.observable.emitter.ListEmitter
 import io.lamart.glyph.implementation.SimpleGlyph
 import io.lamart.glyph.observable.Observable
+import io.lamart.glyph.observable.emitter.ListEmitter
 
+@Suppress("ReplaceSingleLineLet")
 class StateInteractor(
         private val user: UserFeatures,
         private val house: HouseFeatures,
@@ -22,7 +23,7 @@ class StateInteractor(
         fun newInstance(): StateInteractor {
             val delegate = ListEmitter<State>()
             val glyph = SimpleGlyph(State(), delegate)
-            val observable = delegate.prepend(glyph)
+            val observable = delegate.prepend(glyph::get)
 
             val userFeatures: UserFeatures = glyph
                     .compose({ user }, { copy(user = it) })

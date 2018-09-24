@@ -1,10 +1,6 @@
 package io.lamart.glyph.operators
 
 import io.lamart.glyph.implementation.SimpleGlyph
-import io.lamart.glyph.operators.collections.composeCollection
-import io.lamart.glyph.operators.collections.composeList
-import io.lamart.glyph.operators.collections.composeMap
-import io.lamart.glyph.operators.collections.composeSet
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -16,9 +12,7 @@ class ComposeTests {
         val glyph = SimpleGlyph(1 to "a")
 
         glyph.compose({ second }, { copy(second = it) }).set("b")
-        glyph.get().let {
-            assertEquals(1 to "b", it)
-        }
+        assertEquals(1 to "b", glyph.get())
     }
 
     @Test
@@ -26,9 +20,7 @@ class ComposeTests {
         val glyph = SimpleGlyph(listOf(1, 2, 3))
 
         glyph.composeList { it == 2 }.set(4)
-        glyph.get()[1].let {
-            assertEquals(4, it)
-        }
+        assertEquals(4, glyph.get()[1])
     }
 
     @Test
@@ -57,9 +49,7 @@ class ComposeTests {
         ))
 
         glyph.composeMap(2).set("d")
-        glyph.get()[2].let {
-            assertEquals("d", it)
-        }
+        assertEquals("d", glyph.get()[2])
     }
 
 }

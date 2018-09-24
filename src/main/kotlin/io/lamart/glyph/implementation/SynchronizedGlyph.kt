@@ -1,6 +1,7 @@
 package io.lamart.glyph.implementation
 
 import io.lamart.glyph.Glyph
+import io.lamart.glyph.Transformer
 import io.lamart.glyph.observable.Observable
 import io.lamart.glyph.observable.emitter.Emitter
 import io.lamart.glyph.observable.emitter.SynchronizedListEmitter
@@ -13,6 +14,8 @@ class SynchronizedGlyph<T>(
 
     val lock: Any = Any()
 
+    override val observable: Observable<T> = emitter
+
     override fun get(): T = synchronized(lock) { state }
 
     override fun set(state: T) {
@@ -22,10 +25,12 @@ class SynchronizedGlyph<T>(
         emitter(state)
     }
 
-    override fun reduce(block: T.(T) -> T) =
-            synchronized(lock) { super.reduce(block) }
-
-    override fun observe(): Observable<T> = emitter
+    override fun transform(transformer: Transformer<T>) {
+        synchronized(lock) {
+            state = transformer(state, state)
+        }
+        emitter(state)
+    }
 
     fun synchronized(block: Glyph<T>.() -> Unit) = synchronized(lock) { block() }
 

@@ -10,11 +10,18 @@ internal class ComposeGlyph<T, R>(
         private val reduce: T.(R) -> T
 ) : Glyph<R> {
 
-    override fun observe(): Observable<R> = glyph.observe().map(map)
+    override val observable: Observable<R> = glyph.observable.map(map)
 
     override fun get(): R = glyph.get().let(map)
 
-    override fun set(state: R) = glyph.reduce { reduce(it, state) }
+    override fun set(state: R) = glyph.transform { reduce(it, state) }
+
+    override fun transform(transformer: R.(R) -> R) =
+            glyph.transform { t: T ->
+                map(t).let { r ->
+                    reduce(t, transformer(r, r))
+                }
+            }
 
 }
 
@@ -24,11 +31,18 @@ internal class ComposeOptionalGlyph<T, R>(
         private val reduce: T.(R) -> T
 ) : OptionalGlyph<R> {
 
-    override fun observe(): Observable<R?> =
-            glyph.observe().map { it?.let(map) }
+    override val observable: Observable<R?> = glyph.observable.map { it?.let(map) }
 
     override fun get(): R? = glyph.get()?.let(map)
 
-    override fun set(state: R) = glyph.reduce { reduce(it, state) }
+    override fun set(state: R) = glyph.transform { reduce(it, state) }
+
+    override fun transform(transformer: R.(R) -> R) {
+        glyph.transform { t ->
+            map(t).let { r ->
+                reduce(t, transformer(r, r))
+            }
+        }
+    }
 
 }

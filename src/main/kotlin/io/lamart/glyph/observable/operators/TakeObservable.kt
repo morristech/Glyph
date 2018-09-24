@@ -1,8 +1,8 @@
 package io.lamart.glyph.observable.operators
 
-import io.lamart.glyph.observable.Observer
+import io.lamart.glyph.Observer
+import io.lamart.glyph.RemoveObserver
 import io.lamart.glyph.observable.Observable
-import io.lamart.glyph.observable.RemoveObserver
 import java.util.concurrent.atomic.AtomicLong
 
 internal class TakeObservable<T>(
@@ -10,10 +10,9 @@ internal class TakeObservable<T>(
         private val count: Long
 ) : Observable<T> {
 
-    private val counter = AtomicLong()
-
     override fun addObserver(observer: Observer<T>): RemoveObserver {
         lateinit var remove: RemoveObserver
+        val counter = AtomicLong()
         val result = observable.addObserver { item ->
             counter.getAndIncrement().also { currentCount ->
                 when {

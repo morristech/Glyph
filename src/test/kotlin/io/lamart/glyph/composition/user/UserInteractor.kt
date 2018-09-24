@@ -18,7 +18,7 @@ class UserInteractor(
     private fun authenticate(name: String, pass: String) {
         network.authenticate(name, pass) { token, error ->
             if (get().isLoggingIn)
-                reduce {
+                transform {
                     when {
                         error != null -> User.NotLoggedIn(error.message)
                         token != null -> User.LoggedIn(token)

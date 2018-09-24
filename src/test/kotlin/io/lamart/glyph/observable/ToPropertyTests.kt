@@ -6,7 +6,7 @@ import org.junit.Test
 
 class ToPropertyTests {
 
-    private var name: String by "Danny".toGlyph().asProperty()
+    private var name: String by "Danny".toGlyph()
 
     @Test
      fun test() {

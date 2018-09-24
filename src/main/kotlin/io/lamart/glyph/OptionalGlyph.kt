@@ -1,9 +1,21 @@
 package io.lamart.glyph
 
-import io.lamart.glyph.operators.*
+import io.lamart.glyph.observable.Observable
+import io.lamart.glyph.operators.CastOptionalGlyph
+import io.lamart.glyph.operators.ComposeOptionalGlyph
+import io.lamart.glyph.operators.FilterOptionalGlyph
 import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
-interface OptionalGlyph<T> : OptionalGlyphSource<T> {
+interface OptionalGlyph<T> : ReadWriteProperty<Any, T?> {
+
+    val observable: Observable<T?>
+
+    fun get(): T?
+
+    fun set(state: T)
+
+    fun transform(transformer: Transformer<T>)
 
     fun <R : T> cast(): OptionalGlyph<R> = CastOptionalGlyph(this)
 
@@ -13,18 +25,13 @@ interface OptionalGlyph<T> : OptionalGlyphSource<T> {
     ): OptionalGlyph<R> = ComposeOptionalGlyph(this, map, reduce)
 
     fun filter(predicate: T.(T) -> Boolean): OptionalGlyph<T> =
-            FilterOptionalGlyph(this, { predicate(it, it) })
+            FilterOptionalGlyph(this) { predicate(it, it) }
 
-    fun intercept(
-            getState: OptionalGlyph<T>.() -> T? = { get() },
-            setState: OptionalGlyph<T>.(T) -> Unit = { state -> this.set(state) }
-    ): OptionalGlyph<T> = InterceptOptionalGlyph(this, getState, setState)
+    override fun getValue(thisRef: Any, property: KProperty<*>): T? = get()
 
-    fun listen(
-            getState: (T?) -> Unit = { },
-            setState: (T) -> Unit = { }
-    ): OptionalGlyph<T> = ListenOptionalGlyph(this, getState, setState)
-
-    fun asProperty(): ReadWriteProperty<*, T?> = PropertyOptionalGlyph(this)
+    override fun setValue(thisRef: Any, property: KProperty<*>, value: T?) {
+        if (value != null)
+            set(value)
+    }
 
 }

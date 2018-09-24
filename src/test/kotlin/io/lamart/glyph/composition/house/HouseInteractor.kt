@@ -1,10 +1,9 @@
 package io.lamart.glyph.composition.house
 
 import io.lamart.glyph.OptionalGlyph
-import io.lamart.glyph.composition.door.Door
 import io.lamart.glyph.composition.door.DoorInteractor
 import io.lamart.glyph.composition.door.Location
-import io.lamart.glyph.operators.collections.composeList
+import io.lamart.glyph.operators.composeList
 
 class HouseInteractor(glyph: OptionalGlyph<House>) : HouseFeatures, OptionalGlyph<House> by glyph {
 

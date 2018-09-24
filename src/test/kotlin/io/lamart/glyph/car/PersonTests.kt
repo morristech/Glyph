@@ -16,8 +16,8 @@ class PersonTests {
                 .let(::CarsInteractor)
 
         observable
-                .prepend(source)
-                .map { it.cars.find { it.name == "Ferrari" }?.name }
+                .prepend(source::get)
+                .map { person -> person.cars.find { car -> car.name == "Ferrari" }?.name }
                 .distinct()
                 .addObserver(::println)
 
