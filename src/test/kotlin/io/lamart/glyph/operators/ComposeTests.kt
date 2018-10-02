@@ -10,7 +10,7 @@
 
 package io.lamart.glyph.operators
 
-import io.lamart.glyph.implementation.SimpleGlyph
+import io.lamart.glyph.SimpleGlyph
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

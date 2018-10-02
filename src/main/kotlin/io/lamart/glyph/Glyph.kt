@@ -10,7 +10,6 @@
 
 package io.lamart.glyph
 
-import io.lamart.glyph.implementation.SimpleGlyph
 import io.lamart.glyph.observable.Observable
 import io.lamart.glyph.operators.CastGlyph
 import io.lamart.glyph.operators.ComposeGlyph

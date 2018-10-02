@@ -8,33 +8,31 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.lamart.glyph.observable.emitter
+package io.lamart.glyph
 
-import io.lamart.glyph.Observer
-import io.lamart.glyph.RemoveObserver
+import io.lamart.glyph.emitter.Emitter
+import io.lamart.glyph.emitter.SynchronizedListEmitter
+import io.lamart.glyph.observable.Observable
+import java.util.concurrent.atomic.AtomicReference
 
+open class AtomicGlyph<T>(
+        state: T,
+        private val emitter: Emitter<T> = SynchronizedListEmitter()
+) : Glyph<T> {
 
-class SynchronizedListEmitter<T> : Emitter<T> {
+    override val observable: Observable<T> = emitter
+    private val reference = AtomicReference<T>(state)
 
-    private val lock: Any = Any()
-    private val list = mutableListOf<Subscription>()
+    override fun get(): T = reference.get()
 
-    override fun invoke(state: T) =
-            synchronized(lock, { list.toTypedArray() }).forEach { observer -> observer(state) }
-
-    override fun addObserver(observer: Observer<T>): RemoveObserver {
-        val subscription = Subscription(observer)
-
-        synchronized(lock) { list.add(subscription) }
-        return subscription
+    override fun set(state: T) {
+        reference.set(state)
+        emitter(state)
     }
 
-    private inner class Subscription(observer: Observer<T>) : Observer<T> by observer, RemoveObserver {
-
-        override fun invoke() {
-            synchronized(lock) { list.remove(this) }
-        }
-
-    }
+    override fun set(transform: Transformer<T>) =
+            reference
+                    .updateAndGet(transform)
+                    .let(emitter)
 
 }

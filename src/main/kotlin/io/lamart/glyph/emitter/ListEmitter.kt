@@ -8,33 +8,26 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.lamart.glyph.implementation
+package io.lamart.glyph.emitter
 
-import io.lamart.glyph.Glyph
-import io.lamart.glyph.Transformer
-import io.lamart.glyph.observable.Observable
-import io.lamart.glyph.observable.emitter.Emitter
-import io.lamart.glyph.observable.emitter.SynchronizedListEmitter
-import java.util.concurrent.atomic.AtomicReference
+import io.lamart.glyph.Observer
+import io.lamart.glyph.RemoveObserver
 
-open class AtomicGlyph<T>(
-        state: T,
-        private val emitter: Emitter<T> = SynchronizedListEmitter()
-) : Glyph<T> {
 
-    override val observable: Observable<T> = emitter
-    private val reference = AtomicReference<T>(state)
+class ListEmitter<T> : Emitter<T> {
 
-    override fun get(): T = reference.get()
+    private val list = mutableListOf<Subscription>()
 
-    override fun set(state: T) {
-        reference.set(state)
-        emitter(state)
+    override fun invoke(state: T) = list.toList().forEach { observer -> observer(state) }
+
+    override fun addObserver(observer: Observer<T>): RemoveObserver =
+            Subscription(observer).also { list.add(it) }
+
+    private inner class Subscription(observer: Observer<T>) : Observer<T> by observer, RemoveObserver {
+
+        override fun invoke() {
+            list.remove(this)
+        }
+
     }
-
-    override fun set(transform: Transformer<T>) =
-            reference
-                    .updateAndGet(transform)
-                    .let(emitter)
-
 }

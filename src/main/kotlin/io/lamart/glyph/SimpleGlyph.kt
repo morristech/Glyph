@@ -8,13 +8,30 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.lamart.glyph.observable.emitter
+package io.lamart.glyph
 
-import io.lamart.glyph.Observer
+import io.lamart.glyph.emitter.Emitter
+import io.lamart.glyph.emitter.ListEmitter
 import io.lamart.glyph.observable.Observable
 
-/**
- * Delegates the argument of Observer to all the observers registered by the Observable.
- */
+class SimpleGlyph<T>(
+        private var state: T,
+        private val emitter: Emitter<T> = ListEmitter()
+) : Glyph<T> {
 
-interface Emitter<T> : Observer<T>, Observable<T>
+    override val observable: Observable<T> = emitter
+
+    override fun get(): T = state
+
+    override fun set(transform: Transformer<T>) =
+            transform(state).let {
+                state = it
+                emitter(it)
+            }
+
+    override fun set(state: T) {
+        this.state = state
+        emitter(state)
+    }
+
+}

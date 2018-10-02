@@ -8,32 +8,38 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.lamart.glyph.implementation
+package io.lamart.glyph
 
-import io.lamart.glyph.Glyph
-import io.lamart.glyph.Transformer
+import io.lamart.glyph.emitter.Emitter
+import io.lamart.glyph.emitter.SynchronizedListEmitter
 import io.lamart.glyph.observable.Observable
-import io.lamart.glyph.observable.emitter.Emitter
-import io.lamart.glyph.observable.emitter.ListEmitter
 
-class SimpleGlyph<T>(
+
+class SynchronizedGlyph<T>(
         private var state: T,
-        private val emitter: Emitter<T> = ListEmitter()
+        private val emitter: Emitter<T> = SynchronizedListEmitter()
 ) : Glyph<T> {
+
+    val lock: Any = Any()
 
     override val observable: Observable<T> = emitter
 
-    override fun get(): T = state
-
-    override fun set(transform: Transformer<T>) =
-            transform(state).let {
-                state = it
-                emitter(it)
-            }
+    override fun get(): T = synchronized(lock) { state }
 
     override fun set(state: T) {
-        this.state = state
+        synchronized(lock) {
+            this.state = state
+        }
         emitter(state)
     }
+
+    override fun set(transform: Transformer<T>) {
+        synchronized(lock) {
+            state = transform(state)
+        }
+        emitter(state)
+    }
+
+    fun synchronized(block: Glyph<T>.() -> Unit) = synchronized(lock) { block() }
 
 }

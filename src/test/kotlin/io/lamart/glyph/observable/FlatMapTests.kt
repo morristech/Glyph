@@ -10,8 +10,8 @@
 
 package io.lamart.glyph.observable
 
-import io.lamart.glyph.implementation.SimpleGlyph
-import io.lamart.glyph.observable.emitter.ListEmitter
+import io.lamart.glyph.SimpleGlyph
+import io.lamart.glyph.emitter.ListEmitter
 import org.junit.Test
 
 class FlatMapTests {

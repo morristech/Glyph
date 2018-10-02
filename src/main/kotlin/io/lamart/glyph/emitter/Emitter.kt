@@ -8,26 +8,13 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.lamart.glyph.observable.emitter
+package io.lamart.glyph.emitter
 
 import io.lamart.glyph.Observer
-import io.lamart.glyph.RemoveObserver
+import io.lamart.glyph.observable.Observable
 
+/**
+ * Delegates the argument of Observer to all the observers registered by the Observable.
+ */
 
-class ListEmitter<T> : Emitter<T> {
-
-    private val list = mutableListOf<Subscription>()
-
-    override fun invoke(state: T) = list.toList().forEach { observer -> observer(state) }
-
-    override fun addObserver(observer: Observer<T>): RemoveObserver =
-            Subscription(observer).also { list.add(it) }
-
-    private inner class Subscription(observer: Observer<T>) : Observer<T> by observer, RemoveObserver {
-
-        override fun invoke() {
-            list.remove(this)
-        }
-
-    }
-}
+interface Emitter<T> : Observer<T>, Observable<T>
