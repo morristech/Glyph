@@ -19,7 +19,7 @@ interface Glyph<T> : ReadWriteProperty<Any, T> {
 
     fun set(state: T)
 
-    fun transform(transformer: Transformer<T>)
+    fun set(transform: Transformer<T>)
 
     fun <R : T> cast(): Glyph<R> = CastGlyph(this)
 
@@ -43,8 +43,4 @@ interface Glyph<T> : ReadWriteProperty<Any, T> {
 
     }
 
-}
-
-private fun test(value: String) {
-    value.toGlyph().observable.addObserver { }
 }

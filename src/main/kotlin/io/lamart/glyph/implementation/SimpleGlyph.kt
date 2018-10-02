@@ -6,7 +6,7 @@ import io.lamart.glyph.observable.Observable
 import io.lamart.glyph.observable.emitter.Emitter
 import io.lamart.glyph.observable.emitter.ListEmitter
 
-open class SimpleGlyph<T>(
+class SimpleGlyph<T>(
         private var state: T,
         private val emitter: Emitter<T> = ListEmitter()
 ) : Glyph<T> {
@@ -15,8 +15,8 @@ open class SimpleGlyph<T>(
 
     override fun get(): T = state
 
-    override fun transform(transformer: Transformer<T>) =
-            transformer(state, state).let {
+    override fun set(transform: Transformer<T>) =
+            transform(state).let {
                 state = it
                 emitter(it)
             }

@@ -27,23 +27,23 @@ open class ComposeListOptionalGlyph<T>(
     override fun get(): T? = glyph.get()?.find(predicate)
 
     override fun set(state: T) =
-            glyph.transform {
-                indexOfFirst(predicate).takeIf { index -> index != -1 }?.let { index ->
-                    toMutableList().apply {
+            glyph.set { list ->
+                list.indexOfFirst(predicate).takeIf { index -> index != -1 }?.let { index ->
+                    list.toMutableList().apply {
                         set(index, state)
                     }
-                } ?: this
+                } ?: list
             }
 
-    override fun transform(transformer: Transformer<T>) =
-            glyph.transform {
-                indexOfFirst(predicate).takeIf { index -> index != -1 }?.let { index ->
-                    get(index).let { state ->
-                        toMutableList().apply {
-                            set(index, transformer(state, state))
+    override fun set(transform: Transformer<T>) =
+            glyph.set { list ->
+                list.indexOfFirst(predicate).takeIf { index -> index != -1 }?.let { index ->
+                    list[index].let { state ->
+                        list.toMutableList().apply {
+                            set(index, transform(state))
                         }
                     }
-                } ?: this
+                } ?: list
             }
 
 }

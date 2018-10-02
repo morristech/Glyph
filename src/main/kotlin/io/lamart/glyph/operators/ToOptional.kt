@@ -13,7 +13,6 @@ internal class ToOptional<T>(private val glyph: Glyph<T>) : OptionalGlyph<T> {
 
     override fun set(state: T) = glyph.set(state)
 
-    override fun transform(transformer: Transformer<T>) =
-            glyph.get().let { transformer(it, it) }.let(glyph::set)
+    override fun set(transform: Transformer<T>) = glyph.set(transform)
 
 }

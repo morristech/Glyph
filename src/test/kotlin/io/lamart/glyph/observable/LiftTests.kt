@@ -13,7 +13,7 @@ class LiftTests {
         val glyph = SimpleGlyph("", emitter)
 
         emitter
-                .lift(Lifter)
+                .intercept(Lifter)
                 .test()
                 .assertValueAt(0) { it == 1 }
                 .assertValueAt(1) { it == 1 }

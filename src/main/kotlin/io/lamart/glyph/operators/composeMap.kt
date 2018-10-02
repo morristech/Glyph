@@ -26,20 +26,20 @@ open class ComposeMapOptionalGlyph<K, V>(
     override fun get(): V? = glyph.get()?.get(key)
 
     override fun set(state: V) =
-            glyph.transform {
+            glyph.set { map ->
                 when {
-                    containsKey(key) -> toMutableMap().apply { put(key, state) }
-                    else -> this
+                    map.containsKey(key) -> map.toMutableMap().apply { put(key, state) }
+                    else -> map
                 }
             }
 
-    override fun transform(transformer: Transformer<V>) =
-            glyph.transform {
-                get(key)?.let { state ->
-                    toMutableMap().apply {
-                        put(key, transformer(state, state))
+    override fun set(transform: Transformer<V>) =
+            glyph.set { map ->
+                map[key]?.let { state ->
+                    map.toMutableMap().apply {
+                        put(key, transform(state))
                     }
-                } ?: this
+                } ?: map
             }
 
 

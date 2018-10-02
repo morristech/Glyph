@@ -13,9 +13,9 @@ class CastGlyph<T, R : T>(private val glyph: Glyph<T>) : Glyph<R> {
 
     override fun set(state: R) = glyph.set(state)
 
-    override fun transform(transformer: R.(R) -> R) {
-        glyph.transform {
-            transformer(it as R, it)
+    override fun set(transform: (R) -> R) {
+        glyph.set {
+            transform(it as R)
         }
     }
 
@@ -30,9 +30,9 @@ class CastOptionalGlyph<T, R : T>(private val glyph: OptionalGlyph<T>) : Optiona
 
     override fun set(state: R) = glyph.set(state)
 
-    override fun transform(transformer: R.(R) -> R) {
-        glyph.transform {
-            transformer(it as R, it)
+    override fun set(transform: (R) -> R) {
+        glyph.set {
+            transform(it as R)
         }
     }
 

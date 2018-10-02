@@ -15,7 +15,7 @@ interface OptionalGlyph<T> : ReadWriteProperty<Any, T?> {
 
     fun set(state: T)
 
-    fun transform(transformer: Transformer<T>)
+    fun set(transform: Transformer<T>)
 
     fun <R : T> cast(): OptionalGlyph<R> = CastOptionalGlyph(this)
 

@@ -25,16 +25,18 @@ open class ComposeCollectionOptionalGlyph<T>(
 
     override fun get(): T? = glyph.get()?.find(predicate)
 
-    override fun set(state: T) = transform { state }
+    override fun set(state: T) = set { state }
 
-    override fun transform(transformer: Transformer<T>) =
-            glyph.transform {
-                find(predicate)?.let { state ->
-                    toMutableSet().apply {
-                        remove(state)
-                        add(transformer(state, state))
+    override fun set(transform: Transformer<T>) =
+            glyph.set { collection ->
+                collection.find(predicate)?.let { state ->
+                    collection.toMutableSet().apply {
+                        transform(state).also { next ->
+                            remove(state)
+                            add(next)
+                        }
                     }
-                } ?: this
+                } ?: collection
             }
 
 }

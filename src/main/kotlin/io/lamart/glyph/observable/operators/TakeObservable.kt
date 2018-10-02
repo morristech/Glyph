@@ -10,20 +10,31 @@ internal class TakeObservable<T>(
         private val count: Long
 ) : Observable<T> {
 
-    override fun addObserver(observer: Observer<T>): RemoveObserver {
-        lateinit var remove: RemoveObserver
-        val counter = AtomicLong()
-        val result = observable.addObserver { item ->
-            counter.getAndIncrement().also { currentCount ->
-                when {
-                    currentCount < count -> observer(item)
-                    currentCount == count -> remove.invoke()
+    @Suppress("NAME_SHADOWING")
+    override fun addObserver(observer: Observer<T>): RemoveObserver =
+            TakeObserver(observer, count).let { observer ->
+                observable.addObserver(observer).also { remove ->
+                    observer.remove = remove
                 }
             }
-        }
 
-        remove = result
-        return result
+}
+
+private class TakeObserver<T>(
+        private val observer: Observer<T>,
+        private val count: Long
+) : Observer<T> {
+
+    lateinit var remove: RemoveObserver
+    val counter = AtomicLong()
+
+    override fun invoke(item: T) {
+        counter.getAndIncrement().also { currentCount ->
+            when {
+                currentCount < count -> observer(item)
+                currentCount == count -> remove()
+            }
+        }
     }
 
 }

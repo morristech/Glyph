@@ -4,7 +4,7 @@ import io.lamart.glyph.Observer
 import io.lamart.glyph.RemoveObserver
 import io.lamart.glyph.observable.Observable
 
-internal class CastObservable<T, R>(private val observable: Observable<T>) : Observable<R> {
+internal class CastObservable<T, R : T>(private val observable: Observable<T>) : Observable<R> {
 
     override fun addObserver(observer: Observer<R>): RemoveObserver =
             observable.addObserver(CastObserver(observer))

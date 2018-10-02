@@ -13,7 +13,6 @@ open class AtomicGlyph<T>(
 ) : Glyph<T> {
 
     override val observable: Observable<T> = emitter
-
     private val reference = AtomicReference<T>(state)
 
     override fun get(): T = reference.get()
@@ -23,9 +22,9 @@ open class AtomicGlyph<T>(
         emitter(state)
     }
 
-    override fun transform(transformer: Transformer<T>) =
+    override fun set(transform: Transformer<T>) =
             reference
-                    .updateAndGet { transformer(it, it) }
+                    .updateAndGet(transform)
                     .let(emitter)
 
 }

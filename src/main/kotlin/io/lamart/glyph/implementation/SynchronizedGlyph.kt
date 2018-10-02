@@ -25,9 +25,9 @@ class SynchronizedGlyph<T>(
         emitter(state)
     }
 
-    override fun transform(transformer: Transformer<T>) {
+    override fun set(transform: Transformer<T>) {
         synchronized(lock) {
-            state = transformer(state, state)
+            state = transform(state)
         }
         emitter(state)
     }

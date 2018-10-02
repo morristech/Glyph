@@ -22,10 +22,10 @@ internal class FilterGlyph<T>(
 
     override fun set(state: T) = glyph.set(state)
 
-    override fun transform(transformer: Transformer<T>) =
-            glyph.transform {
+    override fun set(transform: Transformer<T>) =
+            glyph.set {
                 when {
-                    predicate(it) -> transformer(it, it)
+                    predicate(it) -> transform(it)
                     else -> it
                 }
             }
@@ -50,11 +50,11 @@ internal class FilterOptionalGlyph<T>(
 
     override fun set(state: T) = glyph.set(state)
 
-    override fun transform(transformer: Transformer<T>) =
-            glyph.transform {
+    override fun set(transform: Transformer<T>) =
+            glyph.set { state ->
                 when {
-                    predicate(it) -> transformer(it, it)
-                    else -> it
+                    predicate(state) -> transform(state)
+                    else -> state
                 }
             }
 

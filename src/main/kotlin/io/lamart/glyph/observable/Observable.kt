@@ -12,10 +12,11 @@ interface Observable<T> {
 
     operator fun Observer<T>.unaryPlus(): RemoveObserver = addObserver(this)
 
-    fun <R> cast(): Observable<R> = CastObservable(this)
+    fun <R : T> cast(): Observable<R> = CastObservable(this)
 
-    fun <R> delegate(delegate: (T, Observer<R>) -> Unit): Observable<R> =
-            DelegateObservable(this, delegate)
+    /**
+     * When the previous element is different from the next, it will emit next.
+     */
 
     fun distinct(): Observable<T> =
             DistinctObservable(this)
@@ -26,8 +27,8 @@ interface Observable<T> {
     fun <R> flatMap(delegate: (T) -> Iterable<R>): Observable<R> =
             FlatMapObservable(this, delegate)
 
-    fun <R> lift(wrap: (Observer<R>) -> Observer<T>): Observable<R> =
-            LiftObservable(this, wrap)
+    fun <R> intercept(wrap: (Observer<R>) -> Observer<T>): Observable<R> =
+            InterceptObservable(this, wrap)
 
     fun <R> map(block: (T) -> R): Observable<R> =
             MapObservable(this, block)

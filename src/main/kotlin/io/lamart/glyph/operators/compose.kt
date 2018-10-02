@@ -14,12 +14,13 @@ internal class ComposeGlyph<T, R>(
 
     override fun get(): R = glyph.get().let(map)
 
-    override fun set(state: R) = glyph.transform { reduce(it, state) }
+    override fun set(state: R) = glyph.set { reduce(it, state) }
 
-    override fun transform(transformer: R.(R) -> R) =
-            glyph.transform { t: T ->
+    @Suppress("ReplaceSingleLineLet")
+    override fun set(transform: (R) -> R) =
+            glyph.set { t: T ->
                 map(t).let { r ->
-                    reduce(t, transformer(r, r))
+                    reduce(t, transform(r))
                 }
             }
 
@@ -35,12 +36,13 @@ internal class ComposeOptionalGlyph<T, R>(
 
     override fun get(): R? = glyph.get()?.let(map)
 
-    override fun set(state: R) = glyph.transform { reduce(it, state) }
+    override fun set(state: R) = glyph.set { reduce(it, state) }
 
-    override fun transform(transformer: R.(R) -> R) {
-        glyph.transform { t ->
+    @Suppress("ReplaceSingleLineLet")
+    override fun set(transform: (R) -> R) {
+        glyph.set { t ->
             map(t).let { r ->
-                reduce(t, transformer(r, r))
+                reduce(t, transform(r))
             }
         }
     }
